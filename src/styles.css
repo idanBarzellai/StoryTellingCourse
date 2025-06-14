@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Children Book Font';
+    src: url('assets/fonts/children_book_font.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply the font to all text elements in the game */
+canvas {
+    font-family: 'Children Book Font', Arial, sans-serif;
+}

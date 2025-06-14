@@ -1,26 +1,103 @@
 {
-  "id": "3c2d4d73-59ac-4f88-8eb2-de33debe634e",
-  "settings": {
-    "compilerOutputLanguage": "TYPE_SCRIPT",
-    "javaScriptInitFieldsInConstructor": false,
-    "javaScriptGenerateFieldDeclarations": true,
-    "exportClass": true,
-    "autoImport": true,
-    "importFileExtension": false,
-    "createMethodName": "editorCreate",
-    "compilerInsertSpaces": false,
-    "compilerTabSize": 4,
-    "borderWidth": 1280,
-    "borderHeight": 720,
-    "borderX": 0,
-    "borderY": 0,
-    "sceneKey": "VIsualNovel"
-  },
-  "sceneType": "SCENE",
-  "displayList": [],
-  "meta": {
-    "app": "Phaser Editor 2D - Scene Editor",
-    "url": "https://phasereditor2d.com",
-    "contentType": "phasereditor2d.core.scene.SceneContentType"
-  }
+    "id": "3c2d4d73-59ac-4f88-8eb2-de33debe634e",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "VisualNovel",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Sprite",
+            "id": "e8f8ee57-1218-445e-8402-242645be67e0",
+            "label": "jack",
+            "texture": {
+                "key": "happy"
+            },
+            "x": 893,
+            "y": 308,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Sprite",
+            "id": "99201d82-7efe-49a1-91c9-875be454a94b",
+            "label": "other_chars",
+            "texture": {
+                "key": "mother"
+            },
+            "x": 376,
+            "y": 300,
+            "scaleX": 0.25,
+            "scaleY": 0.25
+        },
+        {
+            "type": "Sprite",
+            "id": "0665eae4-8208-4602-9bc4-b7182cce3c51",
+            "label": "dialog_box",
+            "texture": {
+                "key": "dialog_box"
+            },
+            "x": 641,
+            "y": 535,
+            "scaleX": 0.5,
+            "scaleY": 0.5
+        },
+        {
+            "type": "Text",
+            "id": "1e86d494-3f29-408b-96ea-b71d39430520",
+            "label": "dialog_text",
+            "x": 344,
+            "y": 432,
+            "text": "New text"
+        },
+        {
+            "type": "Sprite",
+            "id": "cb2d1151-f7d7-497e-a406-1f936653ba3d",
+            "label": "choice_button_1",
+            "texture": {
+                "key": "choice_button"
+            },
+            "x": 382,
+            "y": 640
+        },
+        {
+            "type": "Sprite",
+            "id": "0a33f89a-cc76-4300-8036-1b3dc2dc4d93",
+            "label": "choice_button_2",
+            "texture": {
+                "key": "choice_button"
+            },
+            "x": 892,
+            "y": 638
+        },
+        {
+            "type": "Text",
+            "id": "c655d586-157b-456b-87a9-8d52b176d942",
+            "label": "dialog_choice_2",
+            "x": 727,
+            "y": 612,
+            "text": "New text"
+        },
+        {
+            "type": "Text",
+            "id": "e186ff6a-5756-4603-8f9a-80b333c3ec91",
+            "label": "dialog_choice_1",
+            "x": 217,
+            "y": 605,
+            "text": "New text"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
 }

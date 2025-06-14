@@ -1,0 +1,28 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": {
+                    "IMG": "assets/UI/choice_button.png"
+                },
+                "type": "texture",
+                "key": "choice_button"
+            },
+            {
+                "url": {
+                    "IMG": "assets/UI/dialog_box.png"
+                },
+                "type": "texture",
+                "key": "dialog_box"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false,
+        "visible": true
+    }
+}

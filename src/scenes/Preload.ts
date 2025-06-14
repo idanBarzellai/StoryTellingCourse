@@ -1,4 +1,3 @@
-
 // You can write more code here
 
 /* START OF COMPILED CODE */
@@ -81,7 +80,7 @@ export default class Preload extends Phaser.Scene {
 			}
 		}
 
-		this.scene.start("Level");
+		this.scene.start("VisualNovel");
 	}
 
 	/* END-USER-CODE */
