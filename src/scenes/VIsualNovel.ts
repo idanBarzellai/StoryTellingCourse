@@ -20,6 +20,8 @@ export default class VisualNovel extends Phaser.Scene {
 	private background!: Phaser.GameObjects.Image;
 	private backgroundMusic!: Phaser.Sound.BaseSound;
 	private isTransitioning: boolean = false;
+	private muteButton!: Phaser.GameObjects.Image;
+	private isMuted: boolean = false;
 
 	// Add constants for text scaling
 	private readonly MIN_TEXT_SCALE = 0.5;
@@ -27,7 +29,7 @@ export default class VisualNovel extends Phaser.Scene {
 	private readonly TEXT_SCALE_STEP = 0.1;
 
 	private readonly VISIBLE_TEXT_WIDTH = 0.9;
-	private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.4;
+	private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.45;
 	private readonly CHOICE_BOX_VISIBLE_HEIGHT = 0.6;
 
 
@@ -97,17 +99,17 @@ export default class VisualNovel extends Phaser.Scene {
 		this.dialog_text.setLineSpacing(6);
 
 		// choice_button_1
-		this.choice_button_1 = this.add.sprite(382, 640, "choice_button");
+		this.choice_button_1 = this.add.sprite(400, 645, "choice_button");
 		this.choice_button_1.setInteractive();
 
 		// choice_button_2
-		this.choice_button_2 = this.add.sprite(892, 638, "choice_button");
+		this.choice_button_2 = this.add.sprite(880, 645, "choice_button");
 		this.choice_button_2.setInteractive();
 
 		// Calculate choice button visible area
 
 		// dialog_choice_1 with proper boundaries
-		this.dialog_choice_1 = this.add.bitmapText(382, 640, 'children_book_font', "", 50);
+		this.dialog_choice_1 = this.add.bitmapText(400, 645, 'children_book_font', "", 50);
 		this.dialog_choice_1.setOrigin(0.5);
 		this.dialog_choice_1.scaleX = 1;
 		this.dialog_choice_1.scaleY = 1;
@@ -116,13 +118,24 @@ export default class VisualNovel extends Phaser.Scene {
 		this.dialog_choice_1.setCenterAlign();
 
 		// dialog_choice_2 with proper boundaries
-		this.dialog_choice_2 = this.add.bitmapText(892, 638, 'children_book_font', "", 50);
+		this.dialog_choice_2 = this.add.bitmapText(880, 645, 'children_book_font', "", 50);
 		this.dialog_choice_2.setOrigin(0.5);
 		this.dialog_choice_2.scaleX = 1;
 		this.dialog_choice_2.scaleY = 1;
 		// Set max width to visible area width
 		this.dialog_choice_2.setMaxWidth(this.choice_button_2.width * this.VISIBLE_TEXT_WIDTH);
 		this.dialog_choice_2.setCenterAlign();
+
+		// Mute button (top left)
+		this.muteButton = this.add.image(28, 40, 'unmute').setOrigin(0.5).setScale(0.5).setInteractive({ useHandCursor: true });
+		this.muteButton.setScrollFactor(0);
+		this.muteButton.setDepth(1000);
+		this.muteButton.on('pointerdown', () => {
+			this.isMuted = !this.isMuted;
+			this.sound.mute = this.isMuted;
+			// If you have an unmute icon, swap texture:
+			this.muteButton.setTexture(this.isMuted ? 'mute' : 'unmute');
+		});
 
 		this.events.emit("scene-awake");
 	}
@@ -175,6 +188,14 @@ export default class VisualNovel extends Phaser.Scene {
 		// Load UI elements
 		this.load.image('choice_button', 'assets/UI/choice_button.png');
 		this.load.image('dialog_box', 'assets/UI/dialog_box.png');
+
+		// Load choice button sounds
+		this.load.audio('choice_1', 'assets/sounds/choice_1.wav');
+		this.load.audio('choice_2', 'assets/sounds/choice_2.wav');
+
+		// Load mute button image
+		this.load.image('mute', 'assets/UI/mute.png');
+		this.load.image('unmute', 'assets/UI/unmute.png');
 	}
 
 	create(): void {
@@ -285,7 +306,7 @@ export default class VisualNovel extends Phaser.Scene {
 					const wrappedChoice1 = this.wrapBitmapText(
 						this.currentPassage.links[0].linkText,
 						this.choice_button_1.width * this.VISIBLE_TEXT_WIDTH,
-						20
+						50
 					);
 					this.dialog_choice_1.setText(wrappedChoice1);
 					this.adjustTextScale(
@@ -294,6 +315,7 @@ export default class VisualNovel extends Phaser.Scene {
 						this.choice_button_1.height * this.CHOICE_BOX_VISIBLE_HEIGHT
 					);
 					this.choice_button_1.once('pointerdown', () => {
+						this.sound.play('choice_1', { volume: 0.05 });
 						// Find the passage by ID or name
 						const nextPassage = this.storyData.passages.find((p: any) =>
 							p.id === this.currentPassage.links[0].passageName ||
@@ -315,7 +337,7 @@ export default class VisualNovel extends Phaser.Scene {
 					const wrappedChoice2 = this.wrapBitmapText(
 						this.currentPassage.links[1].linkText,
 						this.choice_button_2.width * this.VISIBLE_TEXT_WIDTH,
-						20
+						50
 					);
 					this.dialog_choice_2.setText(wrappedChoice2);
 					this.adjustTextScale(
@@ -324,6 +346,7 @@ export default class VisualNovel extends Phaser.Scene {
 						this.choice_button_2.height * this.CHOICE_BOX_VISIBLE_HEIGHT
 					);
 					this.choice_button_2.once('pointerdown', () => {
+						this.sound.play('choice_2', { volume: 0.05 });
 						// Find the passage by ID or name
 						const nextPassage = this.storyData.passages.find((p: any) =>
 							p.id === this.currentPassage.links[1].passageName ||
