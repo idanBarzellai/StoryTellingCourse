@@ -172,18 +172,15 @@ export default class VisualNovel extends Phaser.Scene {
 		this.load.image('mother_happy', 'assets/mother/happy.png');
 		this.load.image('mother_sad', 'assets/mother/sad.png');
 		this.load.image('mother_angry', 'assets/mother/angry.png');
-		this.load.image('mother_default', 'assets/mother/mother.png');
 
 		// Load Wizard's sprites
 		this.load.image('wizard_suspicious', 'assets/wizard/suspicious.png');
 		this.load.image('wizard_annoyed', 'assets/wizard/annoyed.png');
 		this.load.image('wizard_laugh', 'assets/wizard/laugh.png');
-		this.load.image('wizard_default', 'assets/wizard/wizard.png');
 
 		// Load Giant's sprites
 		this.load.image('giant_angry', 'assets/giant/angry.png');
 		this.load.image('giant_sleeping', 'assets/giant/sleeping.png');
-		this.load.image('giant_default', 'assets/giant/giant.png');
 
 		// Load UI elements
 		this.load.image('choice_button', 'assets/UI/choice_button.png');

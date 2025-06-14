@@ -40,6 +40,10 @@ module.exports = {
                 test: /\.json/,
                 type: "asset/resource",
                 exclude: /node_modules/,
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
             }
         ],
     },
@@ -74,6 +78,10 @@ module.exports = {
                 {
                     from: "assets",
                     to: "assets"
+                },
+                {
+                    from: "public",
+                    to: "."
                 }
             ]
         }),
