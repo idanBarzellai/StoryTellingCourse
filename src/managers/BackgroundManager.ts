@@ -1,0 +1,56 @@
+import Phaser from 'phaser';
+
+export class BackgroundManager {
+    private scene: Phaser.Scene;
+    private background!: Phaser.GameObjects.Image;
+    private readonly backgroundMapping: { [key: string]: string } = {
+        // Exposition and Opening scenes
+        '1': 'village',    // Exposition (original)
+        '2': 'village',    // Market Journey
+        '3': 'road',       // Turning Point (original updated)
+        '4': 'village',    // Opening (original updated)
+        '5': 'vine',       // Bottleneck Event continue (original updated)
+        '5a': 'castle',    // Bottleneck Event continue (Part 2)
+        '6': 'giant_castle', // Plot (original)
+        '7': 'inside_castle', // Turning Point 2 (original updated)
+        '8': 'vine',       // Peak (original)
+        '9': 'village',    // Closure (original)
+        '10': 'village',   // Ending (original)
+        '11': 'road',      // Opening (alternative)
+        '12': 'village',   // Bottleneck Event (original updated)
+        '13': 'village',   // Bottleneck Event (alternative)
+        '14': 'road',      // Plot (alternative)
+        '15': 'road',      // Turning Point 2 (alternative)
+        '16': 'road',      // Peak (alternative)
+        '17': 'black',     // Ending (alternative)
+        '18': 'inside_castle', // Peak (alternative 2)
+    };
+
+    constructor(scene: Phaser.Scene) {
+        this.scene = scene;
+        this.createBackground();
+    }
+
+    private createBackground(): void {
+        this.background = this.scene.add.image(640, 360, "village");
+        this.background.setScale(1);
+    }
+
+    public updateBackground(passageId: string): void {
+        const backgroundKey = this.backgroundMapping[passageId];
+
+        if (!backgroundKey) {
+            this.background.setTexture('black');
+            // If black texture doesn't exist, create a black rectangle
+            if (!this.scene.textures.exists('black')) {
+                const graphics = this.scene.make.graphics();
+                graphics.fillStyle(0x000000);
+                graphics.fillRect(0, 0, 1280, 720);
+                graphics.generateTexture('black', 1280, 720);
+                graphics.destroy();
+            }
+        } else {
+            this.background.setTexture(backgroundKey);
+        }
+    }
+} 
