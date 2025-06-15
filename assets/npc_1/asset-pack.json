@@ -1,28 +1,6 @@
 {
     "section1": {
-        "files": [
-            {
-                "url": {
-                    "IMG": "assets/mother/angry.png"
-                },
-                "type": "texture",
-                "key": "angry"
-            },
-            {
-                "url": {
-                    "IMG": "assets/mother/happy.png"
-                },
-                "type": "texture",
-                "key": "happy"
-            },
-            {
-                "url": {
-                    "IMG": "assets/mother/sad.png"
-                },
-                "type": "texture",
-                "key": "sad"
-            }
-        ]
+        "files": []
     },
     "meta": {
         "app": "Phaser Editor 2D - Asset Pack Editor",

@@ -1,28 +1,6 @@
 {
     "section1": {
-        "files": [
-            {
-                "url": {
-                    "IMG": "assets/wizard/annoyed.png"
-                },
-                "type": "texture",
-                "key": "annoyed"
-            },
-            {
-                "url": {
-                    "IMG": "assets/wizard/laugh.png"
-                },
-                "type": "texture",
-                "key": "laugh"
-            },
-            {
-                "url": {
-                    "IMG": "assets/wizard/suspicious.png"
-                },
-                "type": "texture",
-                "key": "suspicious"
-            }
-        ]
+        "files": []
     },
     "meta": {
         "app": "Phaser Editor 2D - Asset Pack Editor",
