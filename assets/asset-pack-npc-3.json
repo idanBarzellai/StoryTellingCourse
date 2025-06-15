@@ -3,17 +3,17 @@
         "files": [
             {
                 "url": {
-                    "IMG": "assets/UI/choice_button.png"
+                    "IMG": "assets/npc_3/angry.png"
                 },
                 "type": "texture",
-                "key": "choice_button"
+                "key": "angry"
             },
             {
                 "url": {
-                    "IMG": "assets/UI/dialog_box.png"
+                    "IMG": "assets/npc_3/sleeping.png"
                 },
                 "type": "texture",
-                "key": "dialog_box"
+                "key": "sleeping"
             }
         ]
     },

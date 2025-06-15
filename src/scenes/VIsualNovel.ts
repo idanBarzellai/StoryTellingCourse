@@ -7,7 +7,63 @@ import { AudioManager } from '../managers/AudioManager';
 import { StoryManager } from '../managers/StoryManager';
 import { IPassage } from '../interfaces/IStoryData';
 
-export class VisualNovel extends Phaser.Scene {
+/* START OF COMPILED CODE */
+
+/* START-USER-IMPORTS */
+/* END-USER-IMPORTS */
+
+export default class VisualNovel extends Phaser.Scene {
+
+	constructor() {
+		super("VisualNovel");
+
+		/* START-USER-CTR-CODE */
+		// Write your code here.
+		/* END-USER-CTR-CODE */
+	}
+
+	editorCreate(): void {
+
+		// main_char
+		const main_char = this.add.sprite(880, 308, "happy");
+		main_char.scaleX = 0.25;
+		main_char.scaleY = 0.25;
+
+		// npc_1
+		const npc_1 = this.add.sprite(400, 300, "angry");
+		npc_1.scaleX = 0.25;
+		npc_1.scaleY = 0.25;
+
+		// dialog_box
+		const dialog_box = this.add.sprite(640, 535, "dialog_box");
+		dialog_box.scaleX = 0.5;
+		dialog_box.scaleY = 0.5;
+
+		// dialog_text
+		const dialog_text = this.add.text(640, 480, "", {});
+		dialog_text.text = "New text";
+		dialog_text.setStyle({});
+
+		// choice_button_1
+		this.add.sprite(400, 640, "choice_button");
+
+		// choice_button_2
+		this.add.sprite(880, 640, "choice_button");
+
+		// dialog_choice_2
+		const dialog_choice_2 = this.add.text(880, 640, "", {});
+		dialog_choice_2.text = "New text";
+		dialog_choice_2.setStyle({});
+
+		// dialog_choice_1
+		const dialog_choice_1 = this.add.text(400, 640, "", {});
+		dialog_choice_1.text = "New text";
+		dialog_choice_1.setStyle({});
+
+		this.events.emit("scene-awake");
+	}
+
+	/* START-USER-CODE */
 	private characterManager!: CharacterManager;
 	private dialogManager!: DialogManager;
 	private choiceManager!: ChoiceManager;
@@ -15,10 +71,6 @@ export class VisualNovel extends Phaser.Scene {
 	private audioManager!: AudioManager;
 	private storyManager!: StoryManager;
 	private isTransitioning: boolean = false;
-
-	constructor() {
-		super("VisualNovel");
-	}
 
 	preload(): void {
 		// Load the story JSON
@@ -74,6 +126,8 @@ export class VisualNovel extends Phaser.Scene {
 	}
 
 	create(): void {
+		this.editorCreate();
+
 		// Initialize managers
 		this.characterManager = new CharacterManager(this);
 		this.dialogManager = new DialogManager(this);
@@ -117,7 +171,6 @@ export class VisualNovel extends Phaser.Scene {
 		// Process character emotions
 		const emotions = this.storyManager.processCharacterEmotions(passage.text);
 		emotions.forEach(({ character, emotion }) => {
-			console.log(`Updating character: ${character} with emotion: ${emotion}`);
 			this.characterManager.updateCharacter(character, emotion);
 		});
 
@@ -156,6 +209,7 @@ export class VisualNovel extends Phaser.Scene {
 			}
 		});
 	}
+	/* END-USER-CODE */
 }
 
-export default VisualNovel;
+/* END OF COMPILED CODE */

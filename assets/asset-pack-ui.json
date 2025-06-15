@@ -1,0 +1,42 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": {
+                    "IMG": "assets/UI/choice_button.png"
+                },
+                "type": "texture",
+                "key": "choice_button"
+            },
+            {
+                "url": {
+                    "IMG": "assets/UI/dialog_box.png"
+                },
+                "type": "texture",
+                "key": "dialog_box"
+            },
+            {
+                "url": {
+                    "IMG": "assets/UI/mute.png"
+                },
+                "type": "texture",
+                "key": "mute"
+            },
+            {
+                "url": {
+                    "IMG": "assets/UI/unmute.png"
+                },
+                "type": "texture",
+                "key": "unmute"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false,
+        "visible": true
+    }
+}

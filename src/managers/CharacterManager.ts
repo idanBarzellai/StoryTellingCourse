@@ -20,8 +20,6 @@ export class CharacterManager {
     }
 
     public createCharacter(name: string, x: number, y: number, texture: string): void {
-        console.log(`Creating character: ${name} with texture: ${texture}`);
-
         // Check if texture exists
         if (!this.scene.textures.exists(texture)) {
             console.error(`Texture not found: ${texture}`);
@@ -35,11 +33,9 @@ export class CharacterManager {
         sprite.setDepth(500); // Ensure characters are above background but below UI
         this.characters.set(name, sprite);
 
-        console.log(`Character created: ${name} at (${x}, ${y}) with scale ${this.CHARACTER_SCALE}`);
     }
 
     public updateCharacter(character: string, emotion: string): void {
-        console.log(`Updating character: ${character} with emotion: ${emotion}`);
         const characterKey = character.toLowerCase();
         const emotionKey = emotion.toLowerCase();
         const textureKey = `${characterKey}_${emotionKey}`;
@@ -52,7 +48,6 @@ export class CharacterManager {
                 return;
             }
 
-            console.log(`Setting texture: ${textureKey} for character: ${character}`);
             sprite.setTexture(textureKey);
             sprite.setVisible(true);
             this.playEmotionAnimation(sprite, emotionKey);

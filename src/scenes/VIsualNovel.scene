@@ -17,7 +17,7 @@
             "id": "e8f8ee57-1218-445e-8402-242645be67e0",
             "label": "main_char",
             "texture": {
-                "key": "main_char_happy"
+                "key": "happy"
             },
             "x": 893,
             "y": 308,
@@ -29,7 +29,7 @@
             "id": "99201d82-7efe-49a1-91c9-875be454a94b",
             "label": "npc_1",
             "texture": {
-                "key": "npc_1_happy"
+                "key": "angry"
             },
             "x": 376,
             "y": 300,

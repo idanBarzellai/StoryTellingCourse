@@ -35,7 +35,6 @@ export class StoryManager {
                 const emotionText = line.slice(1, -1); // Remove [ and ]
                 const [character, emotion] = emotionText.split(':');
                 if (character && emotion) {
-                    console.log(`Found emotion: ${character} is ${emotion}`);
                     emotions.push({ character, emotion });
                 }
             }
