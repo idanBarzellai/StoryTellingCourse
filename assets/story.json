@@ -26,7 +26,7 @@
             "name": "Market Journey",
             "tags": "",
             "id": "2",
-            "text": "[Jack:Happy]\n[Mother:Sad]\nMother:\"Take Buttercup to market, Jack. Sell her, or we starve.\"\n\nJack set off for the market, leading Buttercup along the winding path.\n\n[As he walks, he notices a strange old man watching him from the shadows.->3]",
+            "text": "[main_char:Happy]\n[npc_1:Sad]\nMother:\"Take Buttercup to market, Jack. Sell her, or we starve.\"\n\nJack set off for the market, leading Buttercup along the winding path.\n\n[As he walks, he notices a strange old man watching him from the shadows.->3]",
             "links": [
                 {
                     "linkText": "As he walks, he notices a strange old man watching him from the shadows.",
@@ -41,7 +41,7 @@
             "name": "Turning Point (original updated)",
             "tags": "",
             "id": "3",
-            "text": "[Jack:Confused]\n[Wizard:Suspicious]\n\nThe Old Man: \"Ah, young lad! That's a fine cow you have there. Would you be interested in trading her for these magical beans?\"\n\nHe holds out five shimmering beans that seem to glow with an inner light.\n\n[Thrilled, Jack traded Buttercup for the magic beans.->4]\n\n[Afraid of disobeying his mother, Jack declines and continues to the market.->11]",
+            "text": "[main_char:Confused]\n[npc_2:Suspicious]\n\nThe Old Man: \"Ah, young lad! That's a fine cow you have there. Would you be interested in trading her for these magical beans?\"\n\nHe holds out five shimmering beans that seem to glow with an inner light.\n\n[Thrilled, Jack traded Buttercup for the magic beans.->4]\n\n[Afraid of disobeying his mother, Jack declines and continues to the market.->11]",
             "links": [
                 {
                     "linkText": "Thrilled, Jack traded Buttercup for the magic beans.",
@@ -61,7 +61,7 @@
             "name": "Opening (original updated)",
             "tags": "",
             "id": "4",
-            "text": "[Jack:Happy]\n[Mother:Happy]\n\nHe returns home, excited to show his mother what he has acquired.\nMother: \"I see you sold Buttercup. Did you get any food?\"\n\nHe replies:\n\n[\"No, but look what I got instead!\" Eagerly awaiting his mother's reaction, he shows her the magic beans.->12]\n\n[\"No, Mother... I'm sorry, but Buttercup ran away,\" he says, afraid to disappoint her.->13]",
+            "text": "[main_char:Happy]\n[npc_1:Happy]\n\nHe returns home, excited to show his mother what he has acquired.\nMother: \"I see you sold Buttercup. Did you get any food?\"\n\nHe replies:\n\n[\"No, but look what I got instead!\" Eagerly awaiting his mother's reaction, he shows her the magic beans.->12]\n\n[\"No, Mother... I'm sorry, but Buttercup ran away,\" he says, afraid to disappoint her.->13]",
             "links": [
                 {
                     "linkText": "\"No, but look what I got instead!\" Eagerly awaiting his mother's reaction, he shows her the magic beans.",
@@ -81,7 +81,7 @@
             "name": "Bottleneck Event continue (original updated)",
             "tags": "",
             "id": "5",
-            "text": "[Jack:Happy]\n\nOvernight, a giant beanstalk grew into the clouds from the very spot the beans had landed.\n\nJack wakes up and looks out his window, amazed. He jumps out of bed and begins climbing the towering stalk.\n\n[As he climbs higher and higher, the ground below becomes smaller and smaller. ->5a]",
+            "text": "[main_char:Happy]\n\nOvernight, a giant beanstalk grew into the clouds from the very spot the beans had landed.\n\nJack wakes up and looks out his window, amazed. He jumps out of bed and begins climbing the towering stalk.\n\n[As he climbs higher and higher, the ground below becomes smaller and smaller. ->5a]",
             "links": [
                 {
                     "linkText": "As he climbs higher and higher, the ground below becomes smaller and smaller.",
@@ -96,7 +96,7 @@
             "name": "Bottleneck Event continue (Part 2)",
             "tags": "",
             "id": "5a",
-            "text": "[Jack:Happy]\n\nAfter a long climb, Jack finally reaches an enormous castle in the sky.\n\nInside lives a giant — fierce, rich, and always hungry.\n\n[But Jack, unafraid, wandered through the castle halls. ->6]",
+            "text": "[main_char:Happy]\n\nAfter a long climb, Jack finally reaches an enormous castle in the sky.\n\nInside lives a giant — fierce, rich, and always hungry.\n\n[But Jack, unafraid, wandered through the castle halls. ->6]",
             "links": [
                 {
                     "linkText": "But Jack, unafraid, wandered through the castle halls.",
@@ -111,7 +111,7 @@
             "name": "Plot (original)",
             "tags": "",
             "id": "6",
-            "text": "[Jack:Happy]\n[Giant:Sleeping]\n\nHe soon found a massive room filled with golden coins and glittering treasure.\n\nJack stole a bag of gold and escaped back down the beanstalk.\n\nOn his second visit, he stole a magical goose that laid golden eggs.\n\n[On the third ... ->7]",
+            "text": "[main_char:Happy]\n[npc_3:Sleeping]\n\nHe soon found a massive room filled with golden coins and glittering treasure.\n\nJack stole a bag of gold and escaped back down the beanstalk.\n\nOn his second visit, he stole a magical goose that laid golden eggs.\n\n[On the third ... ->7]",
             "links": [
                 {
                     "linkText": "On the third ...",
@@ -126,7 +126,7 @@
             "name": "Turning Point 2 (original updated)",
             "tags": "",
             "id": "7",
-            "text": "[Jack:Confused]\n[Giant:Angry]\n\nJack grabs the singing harp — but it cried out:\n\"Master! Thief! Wake!\"\n\nThe giant thunders awake, and the chase began.\n\n[Jack fled to the beanstalk and began to climb down as fast as he could. ->8]\n\n[Jack decided to hide in a nearby storage room. ->18]",
+            "text": "[main_char:Confused]\n[npc_3:Angry]\n\nJack grabs the singing harp — but it cried out:\n\"Master! Thief! Wake!\"\n\nThe giant thunders awake, and the chase began.\n\n[Jack fled to the beanstalk and began to climb down as fast as he could. ->8]\n\n[Jack decided to hide in a nearby storage room. ->18]",
             "links": [
                 {
                     "linkText": "Jack fled to the beanstalk and began to climb down as fast as he could.",
@@ -146,7 +146,7 @@
             "name": "Peak (original)",
             "tags": "",
             "id": "8",
-            "text": "[Jack:Stressed]\n[Giant:Angry]\n\nJack (yelling from above):\n\"Mother! Bring the axe!\"\n\nWith the giant close behind, Jack reached the ground and chopped the beanstalk down \n\n[Sending the giant crashing to his doom. ->10]",
+            "text": "[main_char:Stressed]\n[npc_3:Angry]\n\nJack (yelling from above):\n\"Mother! Bring the axe!\"\n\nWith the giant close behind, Jack reached the ground and chopped the beanstalk down \n\n[Sending the giant crashing to his doom. ->10]",
             "links": [
                 {
                     "linkText": "Sending the giant crashing to his doom.",
@@ -176,7 +176,7 @@
             "name": "Ending (original)",
             "tags": "",
             "id": "10",
-            "text": "[Jack:Happy]\n[Mother:Happy]\n\nWith the goose and the harp, Jack and his mother were never poor again.\nHis mother embraced him with tears of joy.\n\n[They lived happily, their days filled with gold... and music.->9]",
+            "text": "[main_char:Happy]\n[npc_1:Happy]\n\nWith the goose and the harp, Jack and his mother were never poor again.\nHis mother embraced him with tears of joy.\n\n[They lived happily, their days filled with gold... and music.->9]",
             "links": [
                 {
                     "linkText": "They lived happily, their days filled with gold... and music.",
@@ -191,7 +191,7 @@
             "name": "Opening (alternative)",
             "tags": "",
             "id": "11",
-            "text": "[Jack:Sad]\nHe arrives at the market, but no one has any interest in old Buttercup. Disappointed and defeated, Jack returns home empty-handed.\n\nHe thinks to himself:\n[\"Tomorrow is a new day. I will try again with new energy.\" ->2]",
+            "text": "[main_char:Sad]\nHe arrives at the market, but no one has any interest in old Buttercup. Disappointed and defeated, Jack returns home empty-handed.\n\nHe thinks to himself:\n[\"Tomorrow is a new day. I will try again with new energy.\" ->2]",
             "links": [
                 {
                     "linkText": "\"Tomorrow is a new day. I will try again with new energy.\"",
@@ -206,7 +206,7 @@
             "name": "Bottleneck Event (original updated)",
             "tags": "",
             "id": "12",
-            "text": "[Jack:Sad]\n[Mother:Angry]\n\nHis mother, furious, threw the beans out the window and sent Jack straight to bed.\n\n[Jack goes to sleep, thinking he has deeply disappointed his mother.->5]",
+            "text": "[main_char:Sad]\n[npc_1:Angry]\n\nHis mother, furious, threw the beans out the window and sent Jack straight to bed.\n\n[Jack goes to sleep, thinking he has deeply disappointed his mother.->5]",
             "links": [
                 {
                     "linkText": "Jack goes to sleep, thinking he has deeply disappointed his mother.",
@@ -221,7 +221,7 @@
             "name": "Bottleneck Event (alternative)",
             "tags": "",
             "id": "13",
-            "text": "[Jack:Sad]\n[Mother:Sad]\n\nHis mother, sad but not wanting Jack to feel the same, says gently:\n\"Jack, sweetie, it's OK. Everything will be just fine.\"\nShe kisses his forehead and sends him to bed.\n\n[Jack decides to sneak to the backyard and plant the beans. ->5]\n\n\n[Jack thinks to himself, \"It was all one stupid mistake,\" and decides to search for the old man in the morning. ->14]",
+            "text": "[main_char:Sad]\n[npc_1:Sad]\n\nHis mother, sad but not wanting Jack to feel the same, says gently:\n\"Jack, sweetie, it's OK. Everything will be just fine.\"\nShe kisses his forehead and sends him to bed.\n\n[Jack decides to sneak to the backyard and plant the beans. ->5]\n\n\n[Jack thinks to himself, \"It was all one stupid mistake,\" and decides to search for the old man in the morning. ->14]",
             "links": [
                 {
                     "linkText": "Jack decides to sneak to the backyard and plant the beans.",
@@ -241,7 +241,7 @@
             "name": "Plot (alternative)",
             "tags": "",
             "id": "14",
-            "text": "[Jack:Happy]\n\nJack wakes up, jumps out of bed, and begins marching to the market along the same road as yesterday.\n\nHe waits in the same spot where he met the old man, for several hours — but nothing happens.\nIn a moment of curiosity, Jack decides to eat the magic beans.\n\n[\"What could possibly go wrong?\" he mutters, and then collapses. ->15]",
+            "text": "[main_char:Happy]\n\nJack wakes up, jumps out of bed, and begins marching to the market along the same road as yesterday.\n\nHe waits in the same spot where he met the old man, for several hours — but nothing happens.\nIn a moment of curiosity, Jack decides to eat the magic beans.\n\n[\"What could possibly go wrong?\" he mutters, and then collapses. ->15]",
             "links": [
                 {
                     "linkText": "\"What could possibly go wrong?\" he mutters, and then collapses.",
@@ -256,7 +256,7 @@
             "name": "Turning Point 2 (alternative)",
             "tags": "",
             "id": "15",
-            "text": "[Jack:Confused]\n\nJack wakes up, unsure of what happened, and looks around — he's still on the road to the market.\nRubbing his eyes, he suddenly notices his hands aren't his own. Something very strange has happened.\n\nHe looks down and sees two green, plant-like legs with leaves and vines sprouting from them.\n\n[Startled, he tries to run home but falls down and begins to cry. ->16]",
+            "text": "[main_char:Confused]\n\nJack wakes up, unsure of what happened, and looks around — he's still on the road to the market.\nRubbing his eyes, he suddenly notices his hands aren't his own. Something very strange has happened.\n\nHe looks down and sees two green, plant-like legs with leaves and vines sprouting from them.\n\n[Startled, he tries to run home but falls down and begins to cry. ->16]",
             "links": [
                 {
                     "linkText": "Startled, he tries to run home but falls down and begins to cry.",
@@ -271,7 +271,7 @@
             "name": "Peak (alternative)",
             "tags": "",
             "id": "16",
-            "text": "[Jack:Crying]\n[Wizard:Laugh]\n\nA strange, yet familiar voice speaks to Jack:\n\"No need to cry, young boy, it's OK... everything will be just fine.\"\n\nThe voice begins to laugh — a spooky, eerie laughter — growing louder and louder until Jack's vision fades to black... and he can no longer move.\n\n[Continue-> ->17]",
+            "text": "[main_char:Crying]\n[npc_2:Laugh]\n\nA strange, yet familiar voice speaks to Jack:\n\"No need to cry, young boy, it's OK... everything will be just fine.\"\n\nThe voice begins to laugh — a spooky, eerie laughter — growing louder and louder until Jack's vision fades to black... and he can no longer move.\n\n[Continue-> ->17]",
             "links": [
                 {
                     "linkText": "Continue",
@@ -286,7 +286,7 @@
             "name": "Ending (alternative)",
             "tags": "",
             "id": "17",
-            "text": "[Wizard:Laugh]\n\nJack screamed at the top of his lungs — but no sound came out.\nHe kicked, but his legs wouldn't move.\nHe was stuck… a plant, frozen in place, struggling to remember...\n\n[What wrong choices did he take? ->1]",
+            "text": "[npc_2:Laugh]\n\nJack screamed at the top of his lungs — but no sound came out.\nHe kicked, but his legs wouldn't move.\nHe was stuck… a plant, frozen in place, struggling to remember...\n\n[What wrong choices did he take? ->1]",
             "links": [
                 {
                     "linkText": "What wrong choices did he take?",
@@ -301,7 +301,7 @@
             "name": "Peak (alternative 2)",
             "tags": "",
             "id": "18",
-            "text": "[Jack:Stressed]\n[Giant:Angry]\n\nJack, panting for air, tries to calm himself and stay quiet.\nSuddenly, he hears:\n\"Fee, fi, fo, fum! I smell the blood of a human scum!\"\n\nJack immediately regrets his actions. Desperately thinking of a way out, he spots a window — something is moving outside.\n\nHe creeps closer and sees it's the goose that lays golden eggs — it has come to his aid.\n\n[Jack flies down with the goose to his house safely. ->10]]",
+            "text": "[main_char:Stressed]\n[npc_3:Angry]\n\nJack, panting for air, tries to calm himself and stay quiet.\nSuddenly, he hears:\n\"Fee, fi, fo, fum! I smell the blood of a human scum!\"\n\nJack immediately regrets his actions. Desperately thinking of a way out, he spots a window — something is moving outside.\n\nHe creeps closer and sees it's the goose that lays golden eggs — it has come to his aid.\n\n[Jack flies down with the goose to his house safely. ->10]]",
             "links": [
                 {
                     "linkText": "Jack flies down with the goose to his house safely.",

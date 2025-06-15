@@ -5,25 +5,25 @@ export class BackgroundManager {
     private background!: Phaser.GameObjects.Image;
     private readonly backgroundMapping: { [key: string]: string } = {
         // Exposition and Opening scenes
-        '1': 'village',    // Exposition (original)
-        '2': 'village',    // Market Journey
-        '3': 'road',       // Turning Point (original updated)
-        '4': 'village',    // Opening (original updated)
-        '5': 'vine',       // Bottleneck Event continue (original updated)
-        '5a': 'castle',    // Bottleneck Event continue (Part 2)
-        '6': 'giant_castle', // Plot (original)
-        '7': 'inside_castle', // Turning Point 2 (original updated)
-        '8': 'vine',       // Peak (original)
-        '9': 'village',    // Closure (original)
-        '10': 'village',   // Ending (original)
-        '11': 'road',      // Opening (alternative)
-        '12': 'village',   // Bottleneck Event (original updated)
-        '13': 'village',   // Bottleneck Event (alternative)
-        '14': 'road',      // Plot (alternative)
-        '15': 'road',      // Turning Point 2 (alternative)
-        '16': 'road',      // Peak (alternative)
-        '17': 'black',     // Ending (alternative)
-        '18': 'inside_castle', // Peak (alternative 2)
+        '1': 'scenery_0',    // Village scene
+        '2': 'scenery_0',    // Village scene
+        '3': 'scenery_1',    // Road scene
+        '4': 'scenery_0',    // Village scene
+        '5': 'scenery_2',    // Vine scene
+        '5a': 'scenery_3',   // Castle scene
+        '6': 'scenery_4',    // Giant castle scene
+        '7': 'scenery_5',    // Inside castle scene
+        '8': 'scenery_2',    // Vine scene
+        '9': 'scenery_0',    // Village scene
+        '10': 'scenery_0',   // Village scene
+        '11': 'scenery_1',   // Road scene
+        '12': 'scenery_0',   // Village scene
+        '13': 'scenery_0',   // Village scene
+        '14': 'scenery_1',   // Road scene
+        '15': 'scenery_1',   // Road scene
+        '16': 'scenery_1',   // Road scene
+        '17': 'scenery_6',   // Black scene
+        '18': 'scenery_5',   // Inside castle scene
     };
 
     constructor(scene: Phaser.Scene) {

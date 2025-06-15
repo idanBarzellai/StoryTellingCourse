@@ -31,34 +31,34 @@ export class VisualNovel extends Phaser.Scene {
 		this.load.bitmapFont('children_book_font', 'assets/fonts/children_book_font.png', 'assets/fonts/children_book_font.xml');
 
 		// Load background images
-		this.load.image('castle', 'assets/bg/castle.png');
-		this.load.image('giant_castle', 'assets/bg/giant_castle.png');
-		this.load.image('road', 'assets/bg/road.png');
-		this.load.image('village', 'assets/bg/village.png');
-		this.load.image('vine', 'assets/bg/vine.png');
-		this.load.image('inside_castle', 'assets/bg/inside_castle.png');
-		this.load.image('black', 'assets/bg/black.png');
+		this.load.image('scenery_0', 'assets/bg/scenery_0.png');
+		this.load.image('scenery_1', 'assets/bg/scenery_1.png');
+		this.load.image('scenery_2', 'assets/bg/scenery_2.png');
+		this.load.image('scenery_3', 'assets/bg/scenery_3.png');
+		this.load.image('scenery_4', 'assets/bg/scenery_4.png');
+		this.load.image('scenery_5', 'assets/bg/scenery_5.png');
+		this.load.image('scenery_6', 'assets/bg/black.png');
 
-		// Load Jack's sprites
-		this.load.image('jack_happy', 'assets/jack/happy.png');
-		this.load.image('jack_sad', 'assets/jack/sad.png');
-		this.load.image('jack_crying', 'assets/jack/crying.png');
-		this.load.image('jack_stressed', 'assets/jack/stressed.png');
-		this.load.image('jack_confused', 'assets/jack/confused.png');
+		// Load main character sprites
+		this.load.image('main_char_happy', 'assets/main_char/happy.png');
+		this.load.image('main_char_sad', 'assets/main_char/sad.png');
+		this.load.image('main_char_crying', 'assets/main_char/crying.png');
+		this.load.image('main_char_stressed', 'assets/main_char/stressed.png');
+		this.load.image('main_char_confused', 'assets/main_char/confused.png');
 
-		// Load Mother's sprites
-		this.load.image('mother_happy', 'assets/mother/happy.png');
-		this.load.image('mother_sad', 'assets/mother/sad.png');
-		this.load.image('mother_angry', 'assets/mother/angry.png');
+		// Load NPC 1 sprites
+		this.load.image('npc_1_happy', 'assets/npc_1/happy.png');
+		this.load.image('npc_1_sad', 'assets/npc_1/sad.png');
+		this.load.image('npc_1_angry', 'assets/npc_1/angry.png');
 
-		// Load Wizard's sprites
-		this.load.image('wizard_suspicious', 'assets/wizard/suspicious.png');
-		this.load.image('wizard_annoyed', 'assets/wizard/annoyed.png');
-		this.load.image('wizard_laugh', 'assets/wizard/laugh.png');
+		// Load NPC 2 sprites
+		this.load.image('npc_2_suspicious', 'assets/npc_2/suspicious.png');
+		this.load.image('npc_2_annoyed', 'assets/npc_2/annoyed.png');
+		this.load.image('npc_2_laugh', 'assets/npc_2/laugh.png');
 
-		// Load Giant's sprites
-		this.load.image('giant_angry', 'assets/giant/angry.png');
-		this.load.image('giant_sleeping', 'assets/giant/sleeping.png');
+		// Load NPC 3 sprites
+		this.load.image('npc_3_angry', 'assets/npc_3/angry.png');
+		this.load.image('npc_3_sleeping', 'assets/npc_3/sleeping.png');
 
 		// Load UI elements
 		this.load.image('choice_button', 'assets/UI/choice_button.png');

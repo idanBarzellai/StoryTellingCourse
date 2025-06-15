@@ -13,10 +13,10 @@ export class CharacterManager {
 
     private initializeCharacters(): void {
         // Create all possible characters with their initial states
-        this.createCharacter('Jack', 880, 300, 'jack_happy');
-        this.createCharacter('Mother', 400, 300, 'mother_happy');
-        this.createCharacter('Wizard', 400, 300, 'wizard_suspicious');
-        this.createCharacter('Giant', 400, 300, 'giant_angry');
+        this.createCharacter('main_char', 880, 300, 'main_char_happy');
+        this.createCharacter('npc_1', 400, 300, 'npc_1_happy');
+        this.createCharacter('npc_2', 400, 300, 'npc_2_suspicious');
+        this.createCharacter('npc_3', 400, 300, 'npc_3_angry');
     }
 
     public createCharacter(name: string, x: number, y: number, texture: string): void {
@@ -76,6 +76,7 @@ export class CharacterManager {
                 });
                 break;
             case 'sad':
+            case 'sleeping':
             case 'crying':
                 this.scene.tweens.add({
                     targets: sprite,
