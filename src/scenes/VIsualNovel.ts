@@ -23,6 +23,16 @@ export default class VisualNovel extends Phaser.Scene {
 	}
 
 	editorCreate(): void {
+		// Add black screen first
+		this.blackScreen = this.add.rectangle(0, 0, 1280, 720, 0x000000).setOrigin(0);
+		this.blackScreen.setDepth(9999); // Ensure it's above everything
+
+		// Add loading text
+		this.loadingText = this.add.text(640, 360, "Loading...", {
+			fontSize: '32px',
+			color: '#ffffff'
+		}).setOrigin(0.5);
+		this.loadingText.setDepth(10000); // Ensure it's above the black screen
 
 		// main_char
 		const main_char = this.add.sprite(880, 308, "happy");
@@ -71,78 +81,87 @@ export default class VisualNovel extends Phaser.Scene {
 	public audioManager!: AudioManager;
 	private storyManager!: StoryManager;
 	private isTransitioning: boolean = false;
+	private blackScreen!: Phaser.GameObjects.Rectangle;
+	private loadingText!: Phaser.GameObjects.Text;
 
 	preload(): void {
-		// Load the story JSON
+		// First load the manifest and story data
+		this.load.json('manifest', 'assets/manifest.json');
 		this.load.json('story', 'assets/story.json');
 
-		// Load background music
-		this.load.audio('background_music', 'assets/sounds/bg.mp3');
+		this.load.once('complete', () => {
+			const manifest = this.cache.json.get('manifest');
 
-		// Load bitmap font
-		this.load.bitmapFont('your_font', 'assets/fonts/your_font.png', 'assets/fonts/your_font.xml');
+			// Load font first since other components depend on it
+			const fontData = manifest.fonts.bitmap;
+			this.load.bitmapFont('your_font', `assets/${fontData.texture}`, `assets/${fontData.data}`);
 
-		// Load background images
-		this.load.image('scenery_0', 'assets/bg/scenery_0.png');
-		this.load.image('scenery_1', 'assets/bg/scenery_1.png');
-		this.load.image('scenery_2', 'assets/bg/scenery_2.png');
-		this.load.image('scenery_3', 'assets/bg/scenery_3.png');
-		this.load.image('scenery_4', 'assets/bg/scenery_4.png');
-		this.load.image('scenery_5', 'assets/bg/scenery_5.png');
-		this.load.image('scenery_6', 'assets/bg/black.png');
+			// Load backgrounds
+			manifest.backgrounds.forEach((bgPath: string) => {
+				const key = bgPath.split('/').pop()?.split('.')[0] || '';
+				console.log(bgPath);
+				this.load.image(key, `assets/${bgPath}`);
+			});
 
-		// Load main character sprites
-		this.load.image('main_char_happy', 'assets/main_char/happy.png');
-		this.load.image('main_char_sad', 'assets/main_char/sad.png');
-		this.load.image('main_char_crying', 'assets/main_char/crying.png');
-		this.load.image('main_char_stressed', 'assets/main_char/stressed.png');
-		this.load.image('main_char_confused', 'assets/main_char/confused.png');
+			// Load character expressions
+			Object.entries(manifest.characters).forEach(([charName, expressions]) => {
+				(expressions as string[]).forEach((expr: string) => {
+					const key = `${charName}_${expr.split('.')[0]}`;
+					this.load.image(key, `assets/characters/${charName}/${expr}`);
+				});
+			});
 
-		// Load NPC 1 sprites
-		this.load.image('npc_1_happy', 'assets/npc_1/happy.png');
-		this.load.image('npc_1_sad', 'assets/npc_1/sad.png');
-		this.load.image('npc_1_angry', 'assets/npc_1/angry.png');
+			// Load audio
+			this.load.audio('background_music', `assets/${manifest.audio.bgm}`);
+			manifest.audio.choices.forEach((choiceSound: string, idx: number) => {
+				this.load.audio(`choice_${idx + 1}`, `assets/${choiceSound}`);
+			});
 
-		// Load NPC 2 sprites
-		this.load.image('npc_2_suspicious', 'assets/npc_2/suspicious.png');
-		this.load.image('npc_2_annoyed', 'assets/npc_2/annoyed.png');
-		this.load.image('npc_2_laugh', 'assets/npc_2/laugh.png');
+			// Load UI
+			manifest.ui.forEach((uiAsset: string) => {
+				const key = uiAsset.split('/').pop()?.split('.')[0];
+				this.load.image(key as string, `assets/${uiAsset}`);
+			});
 
-		// Load NPC 3 sprites
-		this.load.image('npc_3_angry', 'assets/npc_3/angry.png');
-		this.load.image('npc_3_sleeping', 'assets/npc_3/sleeping.png');
+			// Start loading all assets
+			this.load.start();
+		});
 
-		// Load UI elements
-		this.load.image('choice_button', 'assets/UI/choice_button.png');
-		this.load.image('dialog_box', 'assets/UI/dialog_box.png');
-
-		// Load choice button sounds
-		this.load.audio('choice_1', 'assets/sounds/choice_1.wav');
-		this.load.audio('choice_2', 'assets/sounds/choice_2.wav');
-
-		// Load mute button image
-		this.load.image('mute', 'assets/UI/mute.png');
-		this.load.image('unmute', 'assets/UI/unmute.png');
+		this.load.start(); // Load the manifest and story
 	}
 
 	create(): void {
 		this.editorCreate();
 
-		// Initialize managers
-		this.characterManager = new CharacterManager(this);
-		this.dialogManager = new DialogManager(this);
-		this.choiceManager = new ChoiceManager(this);
-		this.backgroundManager = new BackgroundManager(this);
-		this.audioManager = new AudioManager(this);
-		this.storyManager = new StoryManager();
+		// Wait for all assets to be loaded before creating managers
+		this.load.once('complete', () => {
+			// Initialize managers
+			this.dialogManager = new DialogManager(this);
+			this.choiceManager = new ChoiceManager(this);
+			this.backgroundManager = new BackgroundManager(this);
+			this.audioManager = new AudioManager(this);
+			this.storyManager = new StoryManager();
 
-		// Load and start the story
-		const storyData = this.cache.json.get('story');
-		this.storyManager.loadStoryData(storyData);
-		this.audioManager.playBackgroundMusic();
+			// Initialize character manager after ensuring all textures are loaded
+			this.characterManager = new CharacterManager(this);
 
-		// Start with the first passage
-		this.showPassage(1);
+			// Load and start the story
+			const storyData = this.cache.json.get('story');
+			if (!storyData) {
+				console.error('Story data not found! Make sure story.json is loaded correctly.');
+				return;
+			}
+
+			this.storyManager.loadStoryData(storyData);
+			this.audioManager.playBackgroundMusic();
+
+			// Remove black screen and loading text after everything is loaded
+			this.blackScreen.destroy();
+			this.loadingText.destroy();
+
+			// Start with the first passage
+			this.showPassage(1);
+		});
 	}
 
 	private showPassage(passageId: number): void {

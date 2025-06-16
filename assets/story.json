@@ -1,11 +1,4 @@
 {
-    "uuid": "63bdead3-70d6-46ad-9c1c-71d9e5633393",
-    "name": "Shenkar 1",
-    "creator": "Twine",
-    "creatorVersion": "2.10.0",
-    "schemaName": "Harlowe 3 to JSON",
-    "schemaVersion": "0.0.6",
-    "createdAtMs": 1749645013897,
     "passages": [
         {
             "name": "Exposition (original)",

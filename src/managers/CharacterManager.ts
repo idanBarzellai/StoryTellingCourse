@@ -15,10 +15,10 @@ export class CharacterManager {
 
     private initializeCharacters(): void {
         // Create all possible characters with their initial states
-        this.createCharacter('main_char', 880, 300, 'main_char_happy');
-        this.createCharacter('npc_1', 400, 300, 'npc_1_happy');
-        this.createCharacter('npc_2', 400, 300, 'npc_2_suspicious');
-        this.createCharacter('npc_3', 400, 300, 'npc_3_angry');
+        this.createCharacter('main_char', 880, 300, 'main_char_main_char');
+        this.createCharacter('npc_1', 400, 300, 'npc_1_npc_1');
+        this.createCharacter('npc_2', 400, 300, 'npc_2_npc_2');
+        this.createCharacter('npc_3', 400, 300, 'npc_3_npc_3');
     }
 
     public createCharacter(name: string, x: number, y: number, texture: string): void {
@@ -73,6 +73,7 @@ export class CharacterManager {
 
         switch (emotion) {
             case 'laugh':
+            case 'excited':
             case 'happy':
                 this.scene.tweens.add({
                     targets: sprite,
@@ -96,6 +97,8 @@ export class CharacterManager {
                 });
                 break;
             case 'stressed':
+            case 'shocked':
+            case 'surprised':
             case 'angry':
                 this.scene.tweens.add({
                     targets: sprite,
@@ -107,6 +110,7 @@ export class CharacterManager {
                 });
                 break;
             case 'confused':
+            case 'annoyed':
             case 'suspicious':
                 this.scene.tweens.add({
                     targets: sprite,

@@ -1,0 +1,57 @@
+{
+    "backgrounds": [
+        "bg/scenery_0.png",
+        "bg/scenery_1.png",
+        "bg/scenery_2.png",
+        "bg/scenery_3.png",
+        "bg/scenery_4.png",
+        "bg/scenery_5.png",
+        "bg/scenery_6.png"
+    ],
+    "characters": {
+        "main_char": [
+            "main_char.png",
+            "happy.png",
+            "sad.png",
+            "crying.png",
+            "stressed.png",
+            "confused.png"
+        ],
+        "npc_1": [
+            "npc_1.png",
+            "happy.png",
+            "sad.png",
+            "angry.png"
+        ],
+        "npc_2": [
+            "npc_2.png",
+            "suspicious.png",
+            "annoyed.png",
+            "laugh.png"
+        ],
+        "npc_3": [
+            "npc_3.png",
+            "angry.png",
+            "sleeping.png"
+        ]
+    },
+    "audio": {
+        "bgm": "sounds/bg.mp3",
+        "choices": [
+            "sounds/choice_1.wav",
+            "sounds/choice_2.wav"
+        ]
+    },
+    "ui": [
+        "UI/choice_button.png",
+        "UI/dialog_box.png",
+        "UI/mute.png",
+        "UI/unmute.png"
+    ],
+    "fonts": {
+        "bitmap": {
+            "texture": "fonts/your_font.png",
+            "data": "fonts/your_font.xml"
+        }
+    }
+}

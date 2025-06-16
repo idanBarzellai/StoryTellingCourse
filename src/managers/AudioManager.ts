@@ -59,7 +59,6 @@ export class AudioManager {
         if (this.isMuted) return;
 
         const soundKey = `choice_${choiceIndex + 1}`;
-        console.log('Trying to play:', soundKey, this.scene.sound.get(soundKey), this.scene.cache.audio.exists(soundKey));
         // If the sound exists in cache but hasn't been added to sound manager, add it
         if (this.scene.cache.audio.exists(soundKey)) {
             this.scene.sound.add(soundKey);
