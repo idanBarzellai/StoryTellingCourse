@@ -80,7 +80,7 @@ export default class VisualNovel extends Phaser.Scene {
 		this.load.audio('background_music', 'assets/sounds/bg.mp3');
 
 		// Load bitmap font
-		this.load.bitmapFont('children_book_font', 'assets/fonts/children_book_font.png', 'assets/fonts/children_book_font.xml');
+		this.load.bitmapFont('your_font', 'assets/fonts/your_font.png', 'assets/fonts/your_font.xml');
 
 		// Load background images
 		this.load.image('scenery_0', 'assets/bg/scenery_0.png');

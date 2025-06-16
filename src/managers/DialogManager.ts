@@ -5,7 +5,7 @@ export class DialogManager {
     private dialogBox!: Phaser.GameObjects.Sprite;
     private dialogText!: Phaser.GameObjects.BitmapText;
     private readonly VISIBLE_TEXT_WIDTH = 0.9;
-    private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.45;
+    private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.6;
     private readonly MIN_TEXT_SCALE = 0.5;
     private readonly MAX_TEXT_SCALE = 1.0;
     private readonly FONT_SIZE = 50;
@@ -17,13 +17,13 @@ export class DialogManager {
 
     private createDialogBox(): void {
         // Create dialog box
-        this.dialogBox = this.scene.add.sprite(640, 500, "dialog_box");
+        this.dialogBox = this.scene.add.sprite(640, 470, "dialog_box");
         this.dialogBox.setOrigin(0.5);
         this.dialogBox.setInteractive();
         this.dialogBox.setDepth(1000); // Ensure it's above other elements
 
         // Create dialog text
-        this.dialogText = this.scene.add.bitmapText(640, 465, 'children_book_font', "", this.FONT_SIZE);
+        this.dialogText = this.scene.add.bitmapText(640, 470, 'your_font', "", this.FONT_SIZE);
         this.dialogText.setOrigin(0.5);
         this.dialogText.setMaxWidth(this.dialogBox.width * this.VISIBLE_TEXT_WIDTH);
         this.dialogText.setCenterAlign();
@@ -75,7 +75,7 @@ export class DialogManager {
         for (let i = 0; i < words.length; i++) {
             const testLine = line + (line ? ' ' : '') + words[i];
             // Create a temp BitmapText to measure width
-            const temp = this.scene.add.bitmapText(0, 0, 'children_book_font', testLine, fontSize);
+            const temp = this.scene.add.bitmapText(0, 0, 'your_font', testLine, fontSize);
             const width = temp.getTextBounds().global.width;
             temp.destroy();
 

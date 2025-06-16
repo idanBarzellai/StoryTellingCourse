@@ -31,6 +31,6 @@ export class StoryManager {
     }
 
     public getNextPassage(link: ILink): IPassage | null {
-        return this.getPassageById(link.passageName);
+        return this.getPassageById(link.passageId);
     }
 } 

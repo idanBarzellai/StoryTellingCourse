@@ -1,6 +1,6 @@
 export interface ILink {
     linkText: string;
-    passageName: number;
+    passageId: number;
 }
 
 export interface IEmotion {

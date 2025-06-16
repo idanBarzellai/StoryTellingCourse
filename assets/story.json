@@ -13,7 +13,7 @@
             "links": [
                 {
                     "linkText": "Continue",
-                    "passageName": 2
+                    "passageId": 2
                 }
             ],
             "cleanText": "In a quiet village, nestled between rolling hills and whispering woods, lived a poor boy named Jack and his mother. They had one possession of value left — a cow named Buttercup.",
@@ -22,11 +22,10 @@
         {
             "name": "Market Journey",
             "id": 2,
-            "text": "Mother: \"Take Buttercup to market, Jack. Sell her, or we starve.\"\n\nJack set off for the market, leading Buttercup along the winding path.",
             "links": [
                 {
                     "linkText": "As he walks, he notices a strange old man watching him from the shadows.",
-                    "passageName": 3
+                    "passageId": 3
                 }
             ],
             "cleanText": "Mother: \"Take Buttercup to market, Jack. Sell her, or we starve.\"\nJack set off for the market, leading Buttercup along the winding path.",
@@ -46,15 +45,14 @@
         {
             "name": "Turning Point (original updated)",
             "id": 3,
-            "text": "The Old Man: \"Ah, young lad! That's a fine cow you have there. Would you be interested in trading her for these magical beans?\"\n\nHe holds out five shimmering beans that seem to glow with an inner light.",
             "links": [
                 {
                     "linkText": "Thrilled, Jack traded Buttercup for the magic beans.",
-                    "passageName": 4
+                    "passageId": 4
                 },
                 {
                     "linkText": "Afraid of disobeying his mother, Jack declines and continues to the market.",
-                    "passageName": 12
+                    "passageId": 12
                 }
             ],
             "cleanText": "The Old Man: \"Ah, young lad! That's a fine cow you have there. Would you be interested in trading her for these magical beans?\"\nHe holds out five shimmering beans that seem to glow with an inner light.",
@@ -74,15 +72,14 @@
         {
             "name": "Opening (original updated)",
             "id": 4,
-            "text": "He returns home, excited to show his mother what he has acquired.\nMother: \"I see you sold Buttercup. Did you get any food?\"\n\nHe replies:\n\n[\"No, but look what I got instead!\" Eagerly awaiting his mother's reaction, he shows her the magic beans.->12]\n\n[\"No, Mother... I'm sorry, but Buttercup ran away,\" he says, afraid to disappoint her.->13]",
             "links": [
                 {
                     "linkText": "\"No, but look what I got instead!\" Eagerly awaiting his mother's reaction, he shows her the magic beans.",
-                    "passageName": 13
+                    "passageId": 13
                 },
                 {
                     "linkText": "\"No, Mother... I'm sorry, but Buttercup ran away,\" he says, afraid to disappoint her.",
-                    "passageName": 14
+                    "passageId": 14
                 }
             ],
             "cleanText": "He returns home, excited to show his mother what he has acquired.\nMother: \"I see you sold Buttercup. Did you get any food?\"\nHe replies:",
@@ -102,11 +99,10 @@
         {
             "name": "Bottleneck Event continue (original updated)",
             "id": 5,
-            "text": "Overnight, a giant beanstalk grew into the clouds from the very spot the beans had landed.\n\nJack wakes up and looks out his window, amazed. He jumps out of bed and begins climbing the towering stalk.\n\n[As he climbs higher and higher, the ground below becomes smaller and smaller. ->6]",
             "links": [
                 {
                     "linkText": "As he climbs higher and higher, the ground below becomes smaller and smaller.",
-                    "passageName": 6
+                    "passageId": 6
                 }
             ],
             "cleanText": "Overnight, a giant beanstalk grew into the clouds from the very spot the beans had landed.\nJack wakes up and looks out his window, amazed. He jumps out of bed and begins climbing the towering stalk.",
@@ -121,11 +117,10 @@
         {
             "name": "Bottleneck Event continue (Part 2)",
             "id": 6,
-            "text": "After a long climb, Jack finally reaches an enormous castle in the sky.\n\nInside lives a giant — fierce, rich, and always hungry.\n\n[But Jack, unafraid, wandered through the castle halls. ->7]",
             "links": [
                 {
                     "linkText": "But Jack, unafraid, wandered through the castle halls.",
-                    "passageName": 7
+                    "passageId": 7
                 }
             ],
             "cleanText": "After a long climb, Jack finally reaches an enormous castle in the sky.\nInside lives a giant — fierce, rich, and always hungry.",
@@ -140,11 +135,10 @@
         {
             "name": "Plot (original)",
             "id": 7,
-            "text": "He soon found a massive room filled with golden coins and glittering treasure.\n\nJack stole a bag of gold and escaped back down the beanstalk.\n\nOn his second visit, he stole a magical goose that laid golden eggs.\n\n[On the third ... ->8]",
             "links": [
                 {
                     "linkText": "On the third ...",
-                    "passageName": 8
+                    "passageId": 8
                 }
             ],
             "cleanText": "He soon found a massive room filled with golden coins and glittering treasure.\nJack stole a bag of gold and escaped back down the beanstalk.\nOn his second visit, he stole a magical goose that laid golden eggs.",
@@ -164,15 +158,14 @@
         {
             "name": "Turning Point 2 (original updated)",
             "id": 8,
-            "text": "Jack grabs the singing harp — but it cried out:\n\"Master! Thief! Wake!\"\n\nThe giant thunders awake, and the chase began.\n\n[Jack fled to the beanstalk and began to climb down as fast as he could. ->9]\n\n[Jack decided to hide in a nearby storage room. ->19]",
             "links": [
                 {
                     "linkText": "Jack fled to the beanstalk and began to climb down as fast as he could.",
-                    "passageName": 9
+                    "passageId": 9
                 },
                 {
                     "linkText": "Jack decided to hide in a nearby storage room.",
-                    "passageName": 19
+                    "passageId": 19
                 }
             ],
             "cleanText": "Jack grabs the singing harp — but it cried out:\n\"Master! Thief! Wake!\"\nThe giant thunders awake, and the chase began.",
@@ -191,11 +184,10 @@
         {
             "name": "Peak (original)",
             "id": 9,
-            "text": "Jack (yelling from above):\n\"Mother! Bring the axe!\"\n\nWith the giant close behind, Jack reached the ground and chopped the beanstalk down \n\n[Sending the giant crashing to his doom. ->10]",
             "links": [
                 {
                     "linkText": "Sending the giant crashing to his doom.",
-                    "passageName": 10
+                    "passageId": 10
                 }
             ],
             "cleanText": "Jack (yelling from above):\n\"Mother! Bring the axe!\"\nWith the giant close behind, Jack reached the ground and chopped the beanstalk down",
@@ -215,11 +207,10 @@
         {
             "name": "Ending (original)",
             "id": 10,
-            "text": "With the goose and the harp, Jack and his mother were never poor again.\nHis mother embraced him with tears of joy.\n\n[They lived happily, their days filled with gold... and music.->11]",
             "links": [
                 {
                     "linkText": "They lived happily, their days filled with gold... and music.",
-                    "passageName": 11
+                    "passageId": 11
                 }
             ],
             "cleanText": "With the goose and the harp, Jack and his mother were never poor again.\nHis mother embraced him with tears of joy.",
@@ -238,11 +229,10 @@
         {
             "name": "Closure (original)",
             "id": 11,
-            "text": "The beanstalk was gone, but the sky above still held its mystery.\nSometimes, Jack would look up at the clouds and wonder...\n\n[Would adventure return one day? ->1]",
             "links": [
                 {
                     "linkText": "Would adventure return one day?",
-                    "passageName": 1
+                    "passageId": 1
                 }
             ],
             "cleanText": "The beanstalk was gone, but the sky above still held its mystery.\nSometimes, Jack would look up at the clouds and wonder...",
@@ -257,11 +247,10 @@
         {
             "name": "Opening (alternative)",
             "id": 12,
-            "text": "He arrives at the market, but no one has any interest in old Buttercup. Disappointed and defeated, Jack returns home empty-handed.\n\nHe thinks to himself:\n[\"Tomorrow is a new day. I will try again with new energy.\" ->2]",
             "links": [
                 {
                     "linkText": "\"Tomorrow is a new day. I will try again with new energy.\"",
-                    "passageName": 2
+                    "passageId": 2
                 }
             ],
             "cleanText": "He arrives at the market, but no one has any interest in old Buttercup. Disappointed and defeated, Jack returns home empty-handed.\nHe thinks to himself:",
@@ -276,11 +265,10 @@
         {
             "name": "Bottleneck Event (original updated)",
             "id": 13,
-            "text": "His mother, furious, threw the beans out the window and sent Jack straight to bed.\n\n[Jack goes to sleep, thinking he has deeply disappointed his mother.->5]",
             "links": [
                 {
                     "linkText": "Jack goes to sleep, thinking he has deeply disappointed his mother.",
-                    "passageName": 5
+                    "passageId": 5
                 }
             ],
             "cleanText": "His mother, furious, threw the beans out the window and sent Jack straight to bed.",
@@ -299,15 +287,14 @@
         {
             "name": "Bottleneck Event (alternative)",
             "id": 14,
-            "text": "His mother, sad but not wanting Jack to feel the same, says gently:\n\"Jack, sweetie, it's OK. Everything will be just fine.\"\nShe kisses his forehead and sends him to bed.\n\n[Jack decides to sneak to the backyard and plant the beans. ->5]\n\n\n[Jack thinks to himself, \"It was all one stupid mistake,\" and decides to search for the old man in the morning. ->15]",
             "links": [
                 {
                     "linkText": "Jack decides to sneak to the backyard and plant the beans.",
-                    "passageName": 5
+                    "passageId": 5
                 },
                 {
                     "linkText": "Jack thinks to himself, \"It was all one stupid mistake,\" and decides to search for the old man in the morning.",
-                    "passageName": 15
+                    "passageId": 15
                 }
             ],
             "cleanText": "His mother, sad but not wanting Jack to feel the same, says gently:\n\"Jack, sweetie, it's OK. Everything will be just fine.\"\nShe kisses his forehead and sends him to bed.",
@@ -327,11 +314,10 @@
         {
             "name": "Plot (alternative)",
             "id": 15,
-            "text": "Jack wakes up, jumps out of bed, and begins marching to the market along the same road as yesterday.\n\nHe waits in the same spot where he met the old man, for several hours — but nothing happens.\nIn a moment of curiosity, Jack decides to eat the magic beans.\n\n[\"What could possibly go wrong?\" he mutters, and then collapses. ->16]",
             "links": [
                 {
                     "linkText": "\"What could possibly go wrong?\" he mutters, and then collapses.",
-                    "passageName": 16
+                    "passageId": 16
                 }
             ],
             "cleanText": "Jack wakes up, jumps out of bed, and begins marching to the market along the same road as yesterday.\nHe waits in the same spot where he met the old man, for several hours — but nothing happens.\nIn a moment of curiosity, Jack decides to eat the magic beans.",
@@ -346,11 +332,10 @@
         {
             "name": "Turning Point 2 (alternative)",
             "id": 16,
-            "text": "Jack wakes up, unsure of what happened, and looks around — he's still on the road to the market.\nRubbing his eyes, he suddenly notices his hands aren't his own. Something very strange has happened.\n\nHe looks down and sees two green, plant-like legs with leaves and vines sprouting from them.\n\n[Startled, he tries to run home but falls down and begins to cry. ->17]",
             "links": [
                 {
                     "linkText": "Startled, he tries to run home but falls down and begins to cry.",
-                    "passageName": 17
+                    "passageId": 17
                 }
             ],
             "cleanText": "Jack wakes up, unsure of what happened, and looks around — he's still on the road to the market.\nRubbing his eyes, he suddenly notices his hands aren't his own. Something very strange has happened.\nHe looks down and sees two green, plant-like legs with leaves and vines sprouting from them.",
@@ -365,11 +350,10 @@
         {
             "name": "Peak (alternative)",
             "id": 17,
-            "text": "A strange, yet familiar voice speaks to Jack:\n\"No need to cry, young boy, it's OK... everything will be just fine.\"\n\nThe voice begins to laugh — a spooky, eerie laughter — growing louder and louder until Jack's vision fades to black... and he can no longer move.\n\n[Continue-> ->18]",
             "links": [
                 {
                     "linkText": "Continue",
-                    "passageName": 18
+                    "passageId": 18
                 }
             ],
             "cleanText": "A strange, yet familiar voice speaks to Jack:\n\"No need to cry, young boy, it's OK... everything will be just fine.\"\nThe voice begins to laugh — a spooky, eerie laughter — growing louder and louder until Jack's vision fades to black... and he can no longer move.",
@@ -389,11 +373,10 @@
         {
             "name": "Ending (alternative)",
             "id": 18,
-            "text": "Jack screamed at the top of his lungs — but no sound came out.\nHe kicked, but his legs wouldn't move.\nHe was stuck… a plant, frozen in place, struggling to remember...\n\n[What wrong choices did he take? ->1]",
             "links": [
                 {
                     "linkText": "What wrong choices did he take?",
-                    "passageName": 1
+                    "passageId": 1
                 }
             ],
             "cleanText": "Jack screamed at the top of his lungs — but no sound came out.\nHe kicked, but his legs wouldn't move.\nHe was stuck… a plant, frozen in place, struggling to remember...",
@@ -408,11 +391,10 @@
         {
             "name": "Peak (alternative 2)",
             "id": 19,
-            "text": "Jack, panting for air, tries to calm himself and stay quiet.\nSuddenly, he hears:\n\"Fee, fi, fo, fum! I smell the blood of a human scum!\"\n\nJack immediately regrets his actions. Desperately thinking of a way out, he spots a window — something is moving outside.\n\nHe creeps closer and sees it's the goose that lays golden eggs — it has come to his aid.\n\n[Jack flies down with the goose to his house safely. ->10]]",
             "links": [
                 {
                     "linkText": "Jack flies down with the goose to his house safely.",
-                    "passageName": 10
+                    "passageId": 10
                 }
             ],
             "cleanText": "Jack, panting for air, tries to calm himself and stay quiet.\nSuddenly, he hears:\n\"Fee, fi, fo, fum! I smell the blood of a human scum!\"\nJack immediately regrets his actions. Desperately thinking of a way out, he spots a window — something is moving outside.\nHe creeps closer and sees it's the goose that lays golden eggs — it has come to his aid.",

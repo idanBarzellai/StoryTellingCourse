@@ -30,8 +30,8 @@ export class ChoiceManager {
         this.choiceButtons = [button1, button2];
 
         // Create choice texts
-        const text1 = this.scene.add.bitmapText(400, 645, 'children_book_font', "", 50);
-        const text2 = this.scene.add.bitmapText(880, 645, 'children_book_font', "", 50);
+        const text1 = this.scene.add.bitmapText(400, 645, 'your_font', "", 50);
+        const text2 = this.scene.add.bitmapText(880, 645, 'your_font', "", 50);
         text1.setOrigin(0.5);
         text2.setOrigin(0.5);
         text1.setCenterAlign();
@@ -65,7 +65,7 @@ export class ChoiceManager {
                     (this.scene as VisualNovel).audioManager?.playChoiceSound(i);
 
                     this.hideChoices(); // Hide choices immediately after click
-                    callback(links[i].passageName); // This is now a number
+                    callback(links[i].passageId); // This is now a number
                 });
             } else {
                 this.choiceButtons[i].setVisible(false);
@@ -114,7 +114,7 @@ export class ChoiceManager {
 
         for (let i = 0; i < words.length; i++) {
             const testLine = line + (line ? ' ' : '') + words[i];
-            const temp = this.scene.add.bitmapText(0, 0, 'children_book_font', testLine, fontSize);
+            const temp = this.scene.add.bitmapText(0, 0, 'your_font', testLine, fontSize);
             const width = temp.getTextBounds().global.width;
             temp.destroy();
 
