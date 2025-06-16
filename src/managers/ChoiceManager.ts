@@ -63,7 +63,7 @@ export class ChoiceManager {
                 // Set up click handler
                 this.choiceButtons[i].on('pointerdown', () => {
                     (this.scene as VisualNovel).audioManager?.playChoiceSound(i);
-                    
+
                     this.hideChoices(); // Hide choices immediately after click
                     callback(links[i].passageName); // This is now a number
                 });

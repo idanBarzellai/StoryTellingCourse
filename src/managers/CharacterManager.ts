@@ -3,11 +3,13 @@ import Phaser from 'phaser';
 export class CharacterManager {
     private scene: Phaser.Scene;
     private characters: Map<string, Phaser.GameObjects.Sprite>;
+    private characterEmotions: Map<string, string>;
     private readonly CHARACTER_SCALE = 0.25;
 
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
         this.characters = new Map();
+        this.characterEmotions = new Map();
         this.initializeCharacters();
     }
 
@@ -48,8 +50,15 @@ export class CharacterManager {
                 return;
             }
 
+            // Always stop any existing animations
+            this.scene.tweens.killTweensOf(sprite);
+
+            // Update texture and visibility
             sprite.setTexture(textureKey);
             sprite.setVisible(true);
+
+            // Always play the emotion animation, even if the character is already visible
+            // with the same emotion
             this.playEmotionAnimation(sprite, emotionKey);
         } else {
             console.error(`Character not found: ${character}`);
@@ -57,8 +66,10 @@ export class CharacterManager {
     }
 
     private playEmotionAnimation(sprite: Phaser.GameObjects.Sprite, emotion: string): void {
-        // Stop any existing animations
+        // Ensure all tweens are killed
         this.scene.tweens.killTweensOf(sprite);
+        sprite.setScale(this.CHARACTER_SCALE); // Reset scale
+        sprite.setAngle(0); // Reset angle
 
         switch (emotion) {
             case 'laugh':
@@ -68,7 +79,8 @@ export class CharacterManager {
                     y: sprite.y - 5,
                     duration: 1000,
                     yoyo: true,
-                    repeat: -1
+                    repeat: -1,
+                    ease: 'Sine.easeInOut'
                 });
                 break;
             case 'sad':
@@ -79,7 +91,8 @@ export class CharacterManager {
                     angle: -2,
                     duration: 1500,
                     yoyo: true,
-                    repeat: -1
+                    repeat: -1,
+                    ease: 'Sine.easeInOut'
                 });
                 break;
             case 'stressed':
@@ -89,7 +102,8 @@ export class CharacterManager {
                     scaleX: sprite.scaleX * 1.04,
                     duration: 500,
                     yoyo: true,
-                    repeat: -1
+                    repeat: -1,
+                    ease: 'Sine.easeInOut'
                 });
                 break;
             case 'confused':
@@ -99,7 +113,8 @@ export class CharacterManager {
                     angle: 2,
                     duration: 2000,
                     yoyo: true,
-                    repeat: -1
+                    repeat: -1,
+                    ease: 'Sine.easeInOut'
                 });
                 break;
         }
@@ -107,8 +122,22 @@ export class CharacterManager {
 
     public hideAllCharacters(): void {
         this.characters.forEach(sprite => {
+            // Kill all tweens
+            this.scene.tweens.killTweensOf(sprite);
+            // Reset transform properties
+            sprite.setScale(this.CHARACTER_SCALE);
+            sprite.setAngle(0);
             sprite.setVisible(false);
-            this.scene.tweens.killTweensOf(sprite); // Stop any animations
         });
+    }
+
+    public showCharacter(character: string): void {
+        const sprite = this.characters.get(character);
+        const emotion = this.characterEmotions.get(character);
+
+        if (sprite && emotion) {
+            sprite.setVisible(true);
+            this.playEmotionAnimation(sprite, emotion);
+        }
     }
 } 
