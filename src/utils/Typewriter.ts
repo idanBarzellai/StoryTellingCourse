@@ -59,11 +59,12 @@ export class Typewriter {
 
     private calculateFinalScale(text: string, boxWidth: number, boxHeight: number): number {
         const wrapped = this.wrapText(text, boxWidth * this.visibleWidth);
-        this.bitmapText.setText(wrapped);
-        this.bitmapText.setScale(this.maxScale);
-        const bounds = this.bitmapText.getTextBounds();
+        const temp = this.scene.add.bitmapText(0, 0, this.bitmapText.font, wrapped, this.fontSize);
+        temp.setScale(this.maxScale);
+        const bounds = temp.getTextBounds();
         const textWidth = bounds.global.width;
         const textHeight = bounds.global.height;
+        temp.destroy();
         const widthScale = (boxWidth * this.visibleWidth) / textWidth;
         const heightScale = (boxHeight * this.visibleHeight) / textHeight;
         const scale = Math.min(widthScale, heightScale, this.maxScale);
