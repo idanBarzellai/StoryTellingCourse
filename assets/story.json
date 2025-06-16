@@ -35,7 +35,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "Mother: \"Take Buttercup to market, Jack. Sell her, or we starve.\"\nJack set off for the market, leading Buttercup along the winding path."
+            "cleanText": "Mother: \"Take Buttercup to market, Jack. Sell her, or we starve.\"\nJack set off for the market, leading Buttercup along the winding path.",
+            "speaker": "npc_1"
         },
         {
             "name": "Turning Point (original updated)",
@@ -55,7 +56,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "The Old Man: \"Ah, young lad! That's a fine cow you have there. Would you be interested in trading her for these magical beans?\"\nHe holds out five shimmering beans that seem to glow with an inner light."
+            "cleanText": "The Old Man: \"Ah, young lad! That's a fine cow you have there. Would you be interested in trading her for these magical beans?\"\nHe holds out five shimmering beans that seem to glow with an inner light.",
+            "speaker": "npc_2"
         },
         {
             "name": "Opening (original updated)",
@@ -75,7 +77,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "He returns home, excited to show his mother what he has acquired.\nMother: \"I see you sold Buttercup. Did you get any food?\"\nHe replies:"
+            "cleanText": "He returns home, excited to show his mother what he has acquired.\nMother: \"I see you sold Buttercup. Did you get any food?\"\nHe replies:",
+            "speaker": "npc_1"
         },
         {
             "name": "Bottleneck Event continue (original updated)",
@@ -120,7 +123,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "He soon found a massive room filled with golden coins and glittering treasure.\nJack stole a bag of gold and escaped back down the beanstalk.\nOn his second visit, he stole a magical goose that laid golden eggs."
+            "cleanText": "He soon found a massive room filled with golden coins and glittering treasure.\nJack stole a bag of gold and escaped back down the beanstalk.\nOn his second visit, he stole a magical goose that laid golden eggs.",
+            "speaker": "npc_3"
         },
         {
             "name": "Turning Point 2 (original updated)",
@@ -155,7 +159,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "Jack (yelling from above):\n\"Mother! Bring the axe!\"\nWith the giant close behind, Jack reached the ground and chopped the beanstalk down"
+            "cleanText": "Jack (yelling from above):\n\"Mother! Bring the axe!\"\nWith the giant close behind, Jack reached the ground and chopped the beanstalk down",
+            "speaker": "main_char"
         },
         {
             "name": "Closure (original)",
@@ -235,7 +240,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "His mother, sad but not wanting Jack to feel the same, says gently:\n\"Jack, sweetie, it's OK. Everything will be just fine.\"\nShe kisses his forehead and sends him to bed."
+            "cleanText": "His mother, sad but not wanting Jack to feel the same, says gently:\n\"Jack, sweetie, it's OK. Everything will be just fine.\"\nShe kisses his forehead and sends him to bed.",
+            "speaker": "npc_1"
         },
         {
             "name": "Plot (alternative)",
@@ -280,7 +286,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "A strange, yet familiar voice speaks to Jack:\n\"No need to cry, young boy, it's OK... everything will be just fine.\"\nThe voice begins to laugh — a spooky, eerie laughter — growing louder and louder until Jack's vision fades to black... and he can no longer move."
+            "cleanText": "A strange, yet familiar voice speaks to Jack:\n\"No need to cry, young boy, it's OK... everything will be just fine.\"\nThe voice begins to laugh — a spooky, eerie laughter — growing louder and louder until Jack's vision fades to black... and he can no longer move.",
+            "speaker": "npc_2"
         },
         {
             "name": "Ending (alternative)",
@@ -295,7 +302,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "Jack screamed at the top of his lungs — but no sound came out.\nHe kicked, but his legs wouldn't move.\nHe was stuck… a plant, frozen in place, struggling to remember..."
+            "cleanText": "Jack screamed at the top of his lungs — but no sound came out.\nHe kicked, but his legs wouldn't move.\nHe was stuck… a plant, frozen in place, struggling to remember...",
+            "speaker": "npc_2"
         },
         {
             "name": "Peak (alternative 2)",
@@ -310,7 +318,8 @@
                 }
             ],
             "hooks": [],
-            "cleanText": "Jack, panting for air, tries to calm himself and stay quiet.\nSuddenly, he hears:\n\"Fee, fi, fo, fum! I smell the blood of a human scum!\"\nJack immediately regrets his actions. Desperately thinking of a way out, he spots a window — something is moving outside.\nHe creeps closer and sees it's the goose that lays golden eggs — it has come to his aid."
+            "cleanText": "Jack, panting for air, tries to calm himself and stay quiet.\nSuddenly, he hears:\n\"Fee, fi, fo, fum! I smell the blood of a human scum!\"\nJack immediately regrets his actions. Desperately thinking of a way out, he spots a window — something is moving outside.\nHe creeps closer and sees it's the goose that lays golden eggs — it has come to his aid.",
+            "speaker": "npc_3"
         }
     ]
 }

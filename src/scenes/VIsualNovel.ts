@@ -174,6 +174,9 @@ export default class VisualNovel extends Phaser.Scene {
 			this.characterManager.updateCharacter(character, emotion);
 		});
 
+		// Play voice over for the passage
+		this.audioManager.playVoiceOver(passage);
+
 		// Display the clean text
 		this.dialogManager.setText(passage.cleanText);
 

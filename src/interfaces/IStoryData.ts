@@ -9,6 +9,7 @@ export interface IPassage {
     text: string;
     cleanText: string;
     links?: ILink[];
+    speaker?: string;
 }
 
 export interface IStoryData {
