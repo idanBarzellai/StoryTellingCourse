@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
 import { ILink } from '../interfaces/IStoryData';
+import VisualNovel from '~/scenes/VisualNovel';
 
 export class ChoiceManager {
     private scene: Phaser.Scene;
     private choiceButtons: Phaser.GameObjects.Sprite[];
     private choiceTexts: Phaser.GameObjects.BitmapText[];
     private readonly VISIBLE_TEXT_WIDTH = 0.9;
-    private readonly CHOICE_BOX_VISIBLE_HEIGHT = 0.6;
+    private readonly VISIBLE_TEXT_HEIGHT = 0.6;
     private readonly MIN_TEXT_SCALE = 0.5;
     private readonly MAX_TEXT_SCALE = 1.0;
 
@@ -19,10 +20,9 @@ export class ChoiceManager {
 
     private createChoiceButtons(): void {
         // Create choice buttons
-        const button1 = this.scene.add.sprite(400, 645, "choice_button");
-        const button2 = this.scene.add.sprite(880, 645, "choice_button");
-        button1.setOrigin(0.5);
-        button2.setOrigin(0.5);
+        const button1 = this.scene.add.sprite(400, 640, 'choice_button');
+        const button2 = this.scene.add.sprite(880, 640, 'choice_button');
+
         button1.setInteractive();
         button2.setInteractive();
         button1.setDepth(1000);
@@ -40,49 +40,53 @@ export class ChoiceManager {
         text2.setDepth(1001);
         this.choiceTexts = [text1, text2];
 
-        // Hide all initially
-        this.hideAll();
+        // Hide all choices initially
+        this.hideChoices();
     }
 
-    public showChoices(links: ILink[], onChoiceSelected: (passageName: string) => void): void {
-        // Hide all first to ensure clean state
-        this.hideAll();
+    public showChoices(links: ILink[], callback: (nextPassageId: number) => void): void {
+        this.hideChoices(); // Always start by hiding all choices to clear previous state
+        if (links.length === 0) {
+            return;
+        }
 
-        links.forEach((link, index) => {
-            if (index < 2) { // Only show up to 2 choices
-                const button = this.choiceButtons[index];
-                const text = this.choiceTexts[index];
-
-                // Set text first
-                const wrappedText = this.wrapText(
-                    link.linkText,
-                    button.width * this.VISIBLE_TEXT_WIDTH,
-                    50
-                );
-                text.setText(wrappedText);
-                this.adjustTextScale(
-                    text,
-                    button.width * this.VISIBLE_TEXT_WIDTH,
-                    button.height * this.CHOICE_BOX_VISIBLE_HEIGHT
-                );
-
-                // Make visible after text is set
-                button.setVisible(true);
-                text.setVisible(true);
+        // Show only as many choices as we have links
+        for (let i = 0; i < this.choiceButtons.length; i++) {
+            // Remove all previous listeners before adding new one
+            this.choiceButtons[i].removeAllListeners('pointerdown');
+            if (i < links.length) {
+                this.choiceButtons[i].setVisible(true);
+                this.choiceTexts[i].setVisible(true);
+                this.choiceTexts[i].setText(links[i].linkText);
+                this.adjustTextScale(i);
 
                 // Set up click handler
-                button.once('pointerdown', () => {
-                    this.scene.sound.play(`choice_${index + 1}`, { volume: 0.05 });
-                    // Hide immediately on click
-                    this.hideAll();
-                    onChoiceSelected(link.passageName);
+                this.choiceButtons[i].on('pointerdown', () => {
+                    (this.scene as VisualNovel).audioManager?.playChoiceSound(i);
+                    
+                    this.hideChoices(); // Hide choices immediately after click
+                    callback(links[i].passageName); // This is now a number
                 });
+            } else {
+                this.choiceButtons[i].setVisible(false);
+                this.choiceTexts[i].setVisible(false);
             }
-        });
+        }
     }
 
-    private adjustTextScale(text: Phaser.GameObjects.BitmapText, maxWidth: number, maxHeight: number): void {
-        // Reset scale to maximum
+    private adjustTextScale(index: number): void {
+        const text = this.choiceTexts[index];
+        const button = this.choiceButtons[index];
+
+        // Wrap the text first
+        const wrappedText = this.wrapText(
+            text.text,
+            button.width * this.VISIBLE_TEXT_WIDTH,
+            50
+        );
+        text.setText(wrappedText);
+
+        // Start with maximum scale
         text.setScale(this.MAX_TEXT_SCALE);
 
         // Get the text bounds
@@ -91,12 +95,13 @@ export class ChoiceManager {
         const textHeight = bounds.global.height;
 
         // If text is too wide or too tall, scale it down
-        if (textWidth > maxWidth || textHeight > maxHeight) {
-            const widthScale = maxWidth / textWidth;
-            const heightScale = maxHeight / textHeight;
+        if (textWidth > button.width * this.VISIBLE_TEXT_WIDTH ||
+            textHeight > button.height * this.VISIBLE_TEXT_HEIGHT) {
+            const widthScale = (button.width * this.VISIBLE_TEXT_WIDTH) / textWidth;
+            const heightScale = (button.height * this.VISIBLE_TEXT_HEIGHT) / textHeight;
             const scale = Math.min(widthScale, heightScale, this.MAX_TEXT_SCALE);
 
-            // Ensure scale doesn't go below minimum
+            // Ensure we don't go below minimum scale
             const finalScale = Math.max(scale, this.MIN_TEXT_SCALE);
             text.setScale(finalScale);
         }
@@ -125,11 +130,8 @@ export class ChoiceManager {
         return result;
     }
 
-    public hideAll(): void {
+    public hideChoices(): void {
         this.choiceButtons.forEach(button => button.setVisible(false));
-        this.choiceTexts.forEach(text => {
-            text.setText(''); // Clear text when hiding
-            text.setVisible(false);
-        });
+        this.choiceTexts.forEach(text => text.setVisible(false));
     }
 } 

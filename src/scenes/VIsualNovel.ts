@@ -68,7 +68,7 @@ export default class VisualNovel extends Phaser.Scene {
 	private dialogManager!: DialogManager;
 	private choiceManager!: ChoiceManager;
 	private backgroundManager!: BackgroundManager;
-	private audioManager!: AudioManager;
+	public audioManager!: AudioManager;
 	private storyManager!: StoryManager;
 	private isTransitioning: boolean = false;
 
@@ -142,19 +142,19 @@ export default class VisualNovel extends Phaser.Scene {
 		this.audioManager.playBackgroundMusic();
 
 		// Start with the first passage
-		this.showPassage('Exposition (original)');
+		this.showPassage(1);
 	}
 
-	private showPassage(passageName: string): void {
+	private showPassage(passageId: number): void {
 		if (this.isTransitioning) return;
 
 		// Set transitioning state
 		this.isTransitioning = true;
 
 		// Get the passage
-		const passage = this.storyManager.getPassageByName(passageName);
+		const passage = this.storyManager.getPassageById(passageId);
 		if (!passage) {
-			console.error('Passage not found:', passageName);
+			console.error(`Passage with ID ${passageId} not found`);
 			this.isTransitioning = false;
 			return;
 		}
@@ -163,13 +163,13 @@ export default class VisualNovel extends Phaser.Scene {
 		this.storyManager.setCurrentPassage(passage);
 
 		// Update background
-		this.backgroundManager.updateBackground(passage.id);
+		this.backgroundManager.updateBackground(passage);
 
 		// Hide all characters initially
 		this.characterManager.hideAllCharacters();
 
 		// Process character emotions
-		const emotions = this.storyManager.processCharacterEmotions(passage.text);
+		const emotions = this.storyManager.getCharacterEmotions(passage);
 		emotions.forEach(({ character, emotion }) => {
 			this.characterManager.updateCharacter(character, emotion);
 		});
@@ -182,32 +182,16 @@ export default class VisualNovel extends Phaser.Scene {
 
 		// Add a delay before making the dialog box clickable
 		this.time.delayedCall(1000, () => {
-			// Handle special navigation links
-			const specialLink = this.storyManager.findSpecialLink(passage.text);
-			if (specialLink) {
-				this.dialogManager.setClickHandler(() => {
-					const nextPassage = this.storyManager.getPassageById(specialLink);
-					if (nextPassage) {
-						this.isTransitioning = false;
-						this.showPassage(nextPassage.name);
-					}
-				});
-				return;
-			}
-
 			// Show choices if there are any
 			if (passage.links && passage.links.length > 0) {
-				this.choiceManager.showChoices(passage.links, (nextPassageName) => {
-					const nextPassage = this.storyManager.getPassageByName(nextPassageName);
-					if (nextPassage) {
-						this.isTransitioning = false;
-						this.showPassage(nextPassage.name);
-					} else {
-						console.error('Passage not found:', nextPassageName);
-						this.isTransitioning = false;
-					}
+				// Always use ChoiceManager for any number of links (including single-link Continue)
+				this.choiceManager.showChoices(passage.links, (nextPassageId) => {
+					this.isTransitioning = false;
+					this.showPassage(nextPassageId);
 				});
 			} else {
+				this.choiceManager.hideChoices();
+				// No links, just end passage
 				this.isTransitioning = false;
 			}
 		});

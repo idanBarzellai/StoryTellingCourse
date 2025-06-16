@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
+import { IPassage } from '../interfaces/IStoryData';
 
 export class AudioManager {
     private scene: Phaser.Scene;
-    private backgroundMusic!: Phaser.Sound.BaseSound;
+    private backgroundMusic: Phaser.Sound.BaseSound | null = null;
     private isMuted: boolean = false;
-    private muteButton!: Phaser.GameObjects.Image;
-    private currentVoiceOver: Phaser.Sound.BaseSound | null = null;
+    private muteButton?: Phaser.GameObjects.Sprite;
 
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
@@ -13,110 +13,71 @@ export class AudioManager {
     }
 
     private createMuteButton(): void {
-        this.muteButton = this.scene.add.image(28, 40, 'unmute')
-            .setOrigin(0.5)
-            .setScale(0.5)
-            .setInteractive({ useHandCursor: true });
-        this.muteButton.setScrollFactor(0);
-        this.muteButton.setDepth(1000);
+        this.muteButton = this.scene.add.sprite(28, 40, 'unmute').setOrigin(0.5)
+            .setScale(0.5);
+        this.muteButton.setInteractive(); this.muteButton.setScrollFactor(0);
+
         this.muteButton.on('pointerdown', () => this.toggleMute());
+        this.muteButton.setDepth(1000);
     }
 
     public playBackgroundMusic(): void {
+        if (this.backgroundMusic) {
+            this.backgroundMusic.stop();
+        }
+
         this.backgroundMusic = this.scene.sound.add('background_music', {
-            volume: 0.03,
+            volume: 0.1,
             loop: true
         });
-        this.backgroundMusic.play();
-    }
 
-    public playChoiceSound(choiceNumber: number): void {
-        this.scene.sound.play(`choice_${choiceNumber}`, { volume: 0.05 });
-    }
-
-    private loadAndPlayVoice(voiceKey: string): void {
-        const path = `assets/sounds/voices/${voiceKey}.mp3`;
-        console.log(`Loading and playing voice: ${voiceKey} from ${path}`);
-
-        // First check if it's already loaded
-        if (this.scene.cache.audio.exists(voiceKey)) {
-            console.log(`Voice already loaded: ${voiceKey}`);
-            this.playVoice(voiceKey);
-            return;
-        }
-
-        // Check if the file exists before trying to load it
-        fetch(path)
-            .then(response => {
-                if (!response.ok) {
-                    console.log(`Voice file not found: ${voiceKey} (this is normal if the file doesn't exist)`);
-                    return;
-                }
-                // If file exists, load and play it
-                this.scene.load.audio(voiceKey, path);
-                this.scene.load.once(`filecomplete-audio-${voiceKey}`, () => {
-                    console.log(`Voice loaded successfully: ${voiceKey}`);
-                    this.playVoice(voiceKey);
-                });
-                this.scene.load.start();
-            })
-            .catch(() => {
-                console.log(`Voice file not found: ${voiceKey} (this is normal if the file doesn't exist)`);
-            });
-    }
-
-    private playVoice(voiceKey: string): void {
-        if (this.currentVoiceOver) {
-            this.currentVoiceOver.stop();
-            this.currentVoiceOver = null;
-        }
-
-        try {
-            this.currentVoiceOver = this.scene.sound.add(voiceKey, {
-                volume: 0.1
-            });
-            this.currentVoiceOver.play();
-            console.log(`Playing voice: ${voiceKey}`);
-        } catch (error) {
-            console.log(`Could not play voice ${voiceKey}: File may not exist`);
+        if (!this.isMuted) {
+            this.backgroundMusic.play();
         }
     }
 
-    public playVoiceOver(passage: { text: string, speaker?: string }): void {
-        // If no speaker is specified, don't play any voice
-        if (!passage.speaker) {
-            console.log('No speaker specified in passage');
-            return;
-        }
+    public playVoiceOver(passage: IPassage): void {
+        if (this.isMuted) return;
 
-        // Get the emotion for the specified speaker
-        const lines = passage.text.split('\n');
-        let emotion = '';
+        // Get the speaker and emotions from the passage
+        const speaker = passage.speaker;
+        const emotions = passage.emotions || [];
 
-        for (const line of lines) {
-            if (line.startsWith('[') && line.includes(':')) {
-                const emotionText = line.slice(1, -1);
-                const [character, charEmotion] = emotionText.split(':');
-                if (character === passage.speaker && charEmotion) {
-                    emotion = charEmotion.toLowerCase();
-                    break;
-                }
+        // Find the emotion for the speaker
+        const speakerEmotion = emotions.find(e => e.character === speaker)?.emotion;
+
+        if (speakerEmotion) {
+            // Play the appropriate voice over sound
+            const soundKey = `${speaker}_${speakerEmotion.toLowerCase()}`;
+            if (this.scene.sound.get(soundKey)) {
+                this.scene.sound.play(soundKey, { volume: 0.7 });
             }
         }
+    }
 
-        // If we found the emotion for the speaker, play the voice over
-        if (emotion) {
-            const voiceKey = `${passage.speaker}_${emotion}`;
-            console.log(`Found voice key: ${voiceKey}`);
-            this.loadAndPlayVoice(voiceKey);
-        } else {
-            console.log(`No emotion found for speaker: ${passage.speaker}`);
+    public playChoiceSound(choiceIndex: number): void {
+        if (this.isMuted) return;
+
+        const soundKey = `choice_${choiceIndex + 1}`;
+        console.log('Trying to play:', soundKey, this.scene.sound.get(soundKey), this.scene.cache.audio.exists(soundKey));
+        // If the sound exists in cache but hasn't been added to sound manager, add it
+        if (this.scene.cache.audio.exists(soundKey)) {
+            this.scene.sound.add(soundKey);
+            this.scene.sound.play(soundKey, { volume: 0.5 });
         }
     }
 
     private toggleMute(): void {
         this.isMuted = !this.isMuted;
-        this.scene.sound.mute = this.isMuted;
-        this.muteButton.setTexture(this.isMuted ? 'mute' : 'unmute');
+
+        if (this.backgroundMusic) {
+            if (this.isMuted) {
+                this.backgroundMusic.pause();
+            } else {
+                this.backgroundMusic.resume();
+            }
+        }
+
+        this.muteButton?.setTexture(this.isMuted ? 'mute' : 'unmute');
     }
 } 

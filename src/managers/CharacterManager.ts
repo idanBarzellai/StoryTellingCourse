@@ -61,6 +61,7 @@ export class CharacterManager {
         this.scene.tweens.killTweensOf(sprite);
 
         switch (emotion) {
+            case 'laugh':
             case 'happy':
                 this.scene.tweens.add({
                     targets: sprite,
