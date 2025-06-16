@@ -6,6 +6,7 @@ import { BackgroundManager } from '../managers/BackgroundManager';
 import { AudioManager } from '../managers/AudioManager';
 import { StoryManager } from '../managers/StoryManager';
 import { IPassage } from '../interfaces/IStoryData';
+import { UIManager } from '../managers/UIManager';
 
 /* START OF COMPILED CODE */
 
@@ -85,6 +86,7 @@ export default class VisualNovel extends Phaser.Scene {
 	private loadingText!: Phaser.GameObjects.Text;
 	private skipCooldown = false;
 	private skipHandler?: () => void;
+	private uiManager!: UIManager;
 
 	preload(): void {
 		// First load the manifest and story data
@@ -160,6 +162,11 @@ export default class VisualNovel extends Phaser.Scene {
 			this.blackScreen.destroy();
 			this.loadingText.destroy();
 
+			// Create UIManager (handles mute and auto-play buttons)
+			this.uiManager = new UIManager(this, undefined, (isMuted) => {
+				this.audioManager.setMuted(isMuted);
+			});
+
 			// Start with the first passage
 			this.showPassage(1);
 		});
@@ -219,13 +226,16 @@ export default class VisualNovel extends Phaser.Scene {
 				this.choiceManager.showChoices(passage.links, (nextPassageId) => {
 					this.isTransitioning = false;
 					this.showPassage(nextPassageId);
-				});
+				}, this.uiManager.getAutoPlay());
 			} else {
 				this.choiceManager.hideChoices();
 				// No links, just end passage
 				this.isTransitioning = false;
 			}
 		});
+		if (this.uiManager.getAutoPlay()) {
+			this.dialogManager.skipTypewriter();
+		}
 
 		// Add skip handler for this passage
 		this.skipHandler = () => {

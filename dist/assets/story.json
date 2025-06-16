@@ -1,0 +1,408 @@
+{
+    "passages": [
+        {
+            "name": "Exposition (original)",
+            "id": 1,
+            "links": [
+                {
+                    "linkText": "Continue",
+                    "passageId": 2
+                }
+            ],
+            "cleanText": "In a quiet village, nestled between rolling hills and whispering woods, lived a poor boy named Jack and his mother. They had one possession of value left — a cow named Buttercup.",
+            "background": "scenery_0"
+        },
+        {
+            "name": "Market Journey",
+            "id": 2,
+            "links": [
+                {
+                    "linkText": "As he walks, he notices a strange old man watching him from the shadows.",
+                    "passageId": 3
+                }
+            ],
+            "cleanText": "Mother: \"Take Buttercup to market, Jack. Sell her, or we starve.\"\nJack set off for the market, leading Buttercup along the winding path.",
+            "speaker": "npc_1",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Happy"
+                },
+                {
+                    "character": "npc_1",
+                    "emotion": "Sad"
+                }
+            ],
+            "background": "scenery_0"
+        },
+        {
+            "name": "Turning Point (original updated)",
+            "id": 3,
+            "links": [
+                {
+                    "linkText": "Thrilled, Jack traded Buttercup for the magic beans.",
+                    "passageId": 4
+                },
+                {
+                    "linkText": "Afraid of disobeying his mother, Jack declines and continues to the market.",
+                    "passageId": 12
+                }
+            ],
+            "cleanText": "The Old Man: \"Ah, young lad! That's a fine cow you have there. Would you be interested in trading her for these magical beans?\"\nHe holds out five shimmering beans that seem to glow with an inner light.",
+            "speaker": "npc_2",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Confused"
+                },
+                {
+                    "character": "npc_2",
+                    "emotion": "Suspicious"
+                }
+            ],
+            "background": "scenery_1"
+        },
+        {
+            "name": "Opening (original updated)",
+            "id": 4,
+            "links": [
+                {
+                    "linkText": "\"No, but look what I got instead!\" Eagerly awaiting his mother's reaction, he shows her the magic beans.",
+                    "passageId": 13
+                },
+                {
+                    "linkText": "\"No, Mother... I'm sorry, but Buttercup ran away,\" he says, afraid to disappoint her.",
+                    "passageId": 14
+                }
+            ],
+            "cleanText": "He returns home, excited to show his mother what he has acquired.\nMother: \"I see you sold Buttercup. Did you get any food?\"\nHe replies:",
+            "speaker": "npc_1",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Happy"
+                },
+                {
+                    "character": "npc_1",
+                    "emotion": "Sad"
+                }
+            ],
+            "background": "scenery_0"
+        },
+        {
+            "name": "Bottleneck Event continue (original updated)",
+            "id": 5,
+            "links": [
+                {
+                    "linkText": "As he climbs higher and higher, the ground below becomes smaller and smaller.",
+                    "passageId": 6
+                }
+            ],
+            "cleanText": "Overnight, a giant beanstalk grew into the clouds from the very spot the beans had landed. Jack wakes up and looks out his window, amazed. He jumps out of bed and begins climbing the towering stalk.",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Happy"
+                }
+            ],
+            "background": "scenery_2"
+        },
+        {
+            "name": "Bottleneck Event continue (Part 2)",
+            "id": 6,
+            "links": [
+                {
+                    "linkText": "But Jack, unafraid, wandered through the castle halls.",
+                    "passageId": 7
+                }
+            ],
+            "cleanText": "After a long climb, Jack finally reaches an enormous castle in the sky. Inside lives a giant — fierce, rich, and always hungry.",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Confused"
+                }
+            ],
+            "background": "scenery_3"
+        },
+        {
+            "name": "Plot (original)",
+            "id": 7,
+            "links": [
+                {
+                    "linkText": "On the third ...",
+                    "passageId": 8
+                }
+            ],
+            "cleanText": "He soon found a massive room filled with golden coins and glittering treasure.\nJack stole a bag of gold and escaped back down the beanstalk.\nOn his second visit, he stole a magical goose that laid golden eggs.",
+            "speaker": "npc_3",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Happy"
+                },
+                {
+                    "character": "npc_3",
+                    "emotion": "Sleeping"
+                }
+            ],
+            "background": "scenery_4"
+        },
+        {
+            "name": "Turning Point 2 (original updated)",
+            "id": 8,
+            "links": [
+                {
+                    "linkText": "Jack fled to the beanstalk and began to climb down as fast as he could.",
+                    "passageId": 9
+                },
+                {
+                    "linkText": "Jack decided to hide in a nearby storage room.",
+                    "passageId": 19
+                }
+            ],
+            "cleanText": "Jack grabs the singing harp — but it cried out:\n\"Master! Thief! Wake!\"\nThe giant thunders awake, and the chase began.",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Stressed"
+                },
+                {
+                    "character": "npc_3",
+                    "emotion": "Angry"
+                }
+            ],
+            "background": "scenery_5"
+        },
+        {
+            "name": "Peak (original)",
+            "id": 9,
+            "links": [
+                {
+                    "linkText": "Sending the giant crashing to his doom.",
+                    "passageId": 10
+                }
+            ],
+            "cleanText": "Jack (yelling from above):\"Mother! Bring the axe!\"\nWith the giant close behind, Jack reached the ground and chopped the beanstalk down",
+            "speaker": "main_char",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Stressed"
+                },
+                {
+                    "character": "npc_3",
+                    "emotion": "Angry"
+                }
+            ],
+            "background": "scenery_2"
+        },
+        {
+            "name": "Ending (original)",
+            "id": 10,
+            "links": [
+                {
+                    "linkText": "They lived happily, their days filled with gold... and music.",
+                    "passageId": 11
+                }
+            ],
+            "cleanText": "With the goose and the harp, Jack and his mother were never poor again. His mother embraced him with tears of joy.",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Happy"
+                },
+                {
+                    "character": "npc_1",
+                    "emotion": "Happy"
+                }
+            ],
+            "background": "scenery_0"
+        },
+        {
+            "name": "Closure (original)",
+            "id": 11,
+            "links": [
+                {
+                    "linkText": "Would adventure return one day?",
+                    "passageId": 1
+                }
+            ],
+            "cleanText": "The beanstalk was gone, but the sky above still held its mystery. Sometimes, Jack would look up at the clouds and wonder...",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Happy"
+                }
+            ],
+            "background": "scenery_0"
+        },
+        {
+            "name": "Opening (alternative)",
+            "id": 12,
+            "links": [
+                {
+                    "linkText": "\"Tomorrow is a new day. I will try again with new energy.\"",
+                    "passageId": 2
+                }
+            ],
+            "cleanText": "He arrives at the market, but no one has any interest in old Buttercup. Disappointed and defeated, Jack returns home empty-handed. He thinks to himself:",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Sad"
+                }
+            ],
+            "background": "scenery_1"
+        },
+        {
+            "name": "Bottleneck Event (original updated)",
+            "id": 13,
+            "links": [
+                {
+                    "linkText": "Jack goes to sleep, thinking he has deeply disappointed his mother.",
+                    "passageId": 5
+                }
+            ],
+            "cleanText": "His mother, furious, threw the beans out the window and sent Jack straight to bed.",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Sad"
+                },
+                {
+                    "character": "npc_1",
+                    "emotion": "Angry"
+                }
+            ],
+            "background": "scenery_0"
+        },
+        {
+            "name": "Bottleneck Event (alternative)",
+            "id": 14,
+            "links": [
+                {
+                    "linkText": "Jack decides to sneak to the backyard and plant the beans.",
+                    "passageId": 5
+                },
+                {
+                    "linkText": "Jack thinks to himself, \"It was all one stupid mistake,\" and decides to search for the old man in the morning.",
+                    "passageId": 15
+                }
+            ],
+            "cleanText": "His mother, sad but not wanting Jack to feel the same, says gently:\n\"Jack, sweetie, it's OK. Everything will be just fine.\"\nShe kisses his forehead and sends him to bed.",
+            "speaker": "npc_1",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Sad"
+                },
+                {
+                    "character": "npc_1",
+                    "emotion": "Sad"
+                }
+            ],
+            "background": "scenery_0"
+        },
+        {
+            "name": "Plot (alternative)",
+            "id": 15,
+            "links": [
+                {
+                    "linkText": "\"What could possibly go wrong?\" he mutters, and then collapses.",
+                    "passageId": 16
+                }
+            ],
+            "cleanText": "Jack wakes up, jumps out of bed, and begins marching to the market along the same road as yesterday. He waits in the same spot where he met the old man, for several hours — but nothing happens. In a moment of curiosity, Jack decides to eat the magic beans.",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Confused"
+                }
+            ],
+            "background": "scenery_1"
+        },
+        {
+            "name": "Turning Point 2 (alternative)",
+            "id": 16,
+            "links": [
+                {
+                    "linkText": "Startled, he tries to run home but falls down and begins to cry.",
+                    "passageId": 17
+                }
+            ],
+            "cleanText": "Jack wakes up, unsure of what happened, and looks around — he's still on the road to the market. Rubbing his eyes, he suddenly notices his hands aren't his own. Something very strange has happened. He looks down and sees two green, plant-like legs with leaves and vines sprouting from them.",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Confused"
+                }
+            ],
+            "background": "scenery_1"
+        },
+        {
+            "name": "Peak (alternative)",
+            "id": 17,
+            "links": [
+                {
+                    "linkText": "Continue",
+                    "passageId": 18
+                }
+            ],
+            "cleanText": "A strange, yet familiar voice speaks to Jack:\"No need to cry, young boy, it's OK... everything will be just fine.\"\nThe voice begins to laugh — a spooky, eerie laughter — growing louder and louder until Jack's vision fades to black... and he can no longer move.",
+            "speaker": "npc_2",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Crying"
+                },
+                {
+                    "character": "npc_2",
+                    "emotion": "Laugh"
+                }
+            ],
+            "background": "scenery_1"
+        },
+        {
+            "name": "Ending (alternative)",
+            "id": 18,
+            "links": [
+                {
+                    "linkText": "What wrong choices did he take?",
+                    "passageId": 1
+                }
+            ],
+            "cleanText": "Jack screamed at the top of his lungs — but no sound came out. He kicked, but his legs wouldn't move. He was stuck… a plant, frozen in place, struggling to remember...",
+            "emotions": [
+                {
+                    "character": "npc_2",
+                    "emotion": "Laugh"
+                }
+            ],
+            "background": "scenery_6"
+        },
+        {
+            "name": "Peak (alternative 2)",
+            "id": 19,
+            "links": [
+                {
+                    "linkText": "Jack flies down with the goose to his house safely.",
+                    "passageId": 10
+                }
+            ],
+            "cleanText": "Jack, panting for air, tries to calm himself and stay quiet. Suddenly, he hears: \"Fee, fi, fo, fum! I smell the blood of a human scum!\"\nJack immediately regrets his actions. Desperately thinking of a way out, he spots a window — something is moving outside. He creeps closer and sees it's the goose that lays golden eggs — it has come to his aid.",
+            "speaker": "npc_3",
+            "emotions": [
+                {
+                    "character": "main_char",
+                    "emotion": "Stressed"
+                },
+                {
+                    "character": "npc_3",
+                    "emotion": "Angry"
+                }
+            ],
+            "background": "scenery_5"
+        }
+    ]
+}

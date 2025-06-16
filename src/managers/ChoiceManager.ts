@@ -66,7 +66,7 @@ export class ChoiceManager {
         this.hideChoices();
     }
 
-    public showChoices(links: ILink[], callback: (nextPassageId: number) => void): void {
+    public showChoices(links: ILink[], callback: (nextPassageId: number) => void, autoPlay: boolean = false): void {
         this.hideChoices(); // Always start by hiding all choices to clear previous state
         if (links.length === 0) {
             return;
@@ -103,9 +103,15 @@ export class ChoiceManager {
                             this.choiceButtons[1].height,
                             30
                         );
+                        if (autoPlay) {
+                            this.skipTypewriter(1);
+                        }
                     }
                 }
             );
+            if (autoPlay) {
+                this.skipTypewriter(0);
+            }
         }
 
         // Set up click handlers (these can be set immediately, as the buttons are visible)

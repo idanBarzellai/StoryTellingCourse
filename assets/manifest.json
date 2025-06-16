@@ -46,7 +46,9 @@
         "UI/choice_button.png",
         "UI/dialog_box.png",
         "UI/mute.png",
-        "UI/unmute.png"
+        "UI/unmute.png",
+        "UI/autoplay_off.png",
+        "UI/autoplay_on.png"
     ],
     "fonts": {
         "bitmap": {

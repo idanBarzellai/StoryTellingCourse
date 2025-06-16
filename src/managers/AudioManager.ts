@@ -79,4 +79,15 @@ export class AudioManager {
 
         this.muteButton?.setTexture(this.isMuted ? 'mute' : 'unmute');
     }
+
+    public setMuted(isMuted: boolean): void {
+        this.isMuted = isMuted;
+        if (this.backgroundMusic) {
+            if (this.isMuted) {
+                this.backgroundMusic.pause();
+            } else {
+                this.backgroundMusic.resume();
+            }
+        }
+    }
 } 
