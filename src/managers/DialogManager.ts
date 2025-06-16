@@ -4,8 +4,8 @@ export class DialogManager {
     private scene: Phaser.Scene;
     private dialogBox!: Phaser.GameObjects.Sprite;
     private dialogText!: Phaser.GameObjects.BitmapText;
-    private readonly VISIBLE_TEXT_WIDTH = 0.9;
-    private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.6;
+    private readonly VISIBLE_TEXT_WIDTH = 0.95;
+    private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.7;
     private readonly MIN_TEXT_SCALE = 0.5;
     private readonly MAX_TEXT_SCALE = 1.0;
     private readonly FONT_SIZE = 50;

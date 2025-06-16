@@ -7,7 +7,7 @@ export class ChoiceManager {
     private choiceButtons: Phaser.GameObjects.Sprite[];
     private choiceTexts: Phaser.GameObjects.BitmapText[];
     private readonly VISIBLE_TEXT_WIDTH = 0.9;
-    private readonly VISIBLE_TEXT_HEIGHT = 0.6;
+    private readonly VISIBLE_TEXT_HEIGHT = 0.7;
     private readonly MIN_TEXT_SCALE = 0.5;
     private readonly MAX_TEXT_SCALE = 1.0;
 
