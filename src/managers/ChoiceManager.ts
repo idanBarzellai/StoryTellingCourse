@@ -1,20 +1,24 @@
 import Phaser from 'phaser';
 import { ILink } from '../interfaces/IStoryData';
 import VisualNovel from '~/scenes/VisualNovel';
+import { Typewriter } from '../utils/Typewriter';
 
 export class ChoiceManager {
     private scene: Phaser.Scene;
     private choiceButtons: Phaser.GameObjects.Sprite[];
     private choiceTexts: Phaser.GameObjects.BitmapText[];
+    private typewriters: Typewriter[];
     private readonly VISIBLE_TEXT_WIDTH = 0.9;
     private readonly VISIBLE_TEXT_HEIGHT = 0.7;
     private readonly MIN_TEXT_SCALE = 0.5;
     private readonly MAX_TEXT_SCALE = 1.0;
+    private readonly FONT_SIZE = 50;
 
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
         this.choiceButtons = [];
         this.choiceTexts = [];
+        this.typewriters = [];
         this.createChoiceButtons();
     }
 
@@ -30,8 +34,8 @@ export class ChoiceManager {
         this.choiceButtons = [button1, button2];
 
         // Create choice texts
-        const text1 = this.scene.add.bitmapText(400, 645, 'your_font', "", 50);
-        const text2 = this.scene.add.bitmapText(880, 645, 'your_font', "", 50);
+        const text1 = this.scene.add.bitmapText(400, 645, 'your_font', "", this.FONT_SIZE);
+        const text2 = this.scene.add.bitmapText(880, 645, 'your_font', "", this.FONT_SIZE);
         text1.setOrigin(0.5);
         text2.setOrigin(0.5);
         text1.setCenterAlign();
@@ -39,6 +43,24 @@ export class ChoiceManager {
         text1.setDepth(1001);
         text2.setDepth(1001);
         this.choiceTexts = [text1, text2];
+
+        // Create typewriters for each choice text
+        this.typewriters = [
+            new Typewriter(this.scene, text1, {
+                maxScale: this.MAX_TEXT_SCALE,
+                minScale: this.MIN_TEXT_SCALE,
+                visibleWidth: this.VISIBLE_TEXT_WIDTH,
+                visibleHeight: this.VISIBLE_TEXT_HEIGHT,
+                fontSize: this.FONT_SIZE
+            }),
+            new Typewriter(this.scene, text2, {
+                maxScale: this.MAX_TEXT_SCALE,
+                minScale: this.MIN_TEXT_SCALE,
+                visibleWidth: this.VISIBLE_TEXT_WIDTH,
+                visibleHeight: this.VISIBLE_TEXT_HEIGHT,
+                fontSize: this.FONT_SIZE
+            })
+        ];
 
         // Hide all choices initially
         this.hideChoices();
@@ -52,86 +74,63 @@ export class ChoiceManager {
 
         // Show only as many choices as we have links
         for (let i = 0; i < this.choiceButtons.length; i++) {
-            // Remove all previous listeners before adding new one
             this.choiceButtons[i].removeAllListeners('pointerdown');
+            this.choiceTexts[i].setText(''); // Clear text first
+            this.choiceTexts[i].setVisible(false); // Always start hidden
             if (i < links.length) {
                 this.choiceButtons[i].setVisible(true);
-                this.choiceTexts[i].setVisible(true);
-                this.choiceTexts[i].setText(links[i].linkText);
-                this.adjustTextScale(i);
-
-                // Set up click handler
-                this.choiceButtons[i].on('pointerdown', () => {
-                    (this.scene as VisualNovel).audioManager?.playChoiceSound(i);
-
-                    this.hideChoices(); // Hide choices immediately after click
-                    callback(links[i].passageId); // This is now a number
-                });
+                // Only make the first choice text visible now
+                if (i === 0) this.choiceTexts[i].setVisible(true);
             } else {
                 this.choiceButtons[i].setVisible(false);
-                this.choiceTexts[i].setVisible(false);
-            }
-        }
-    }
-
-    private adjustTextScale(index: number): void {
-        const text = this.choiceTexts[index];
-        const button = this.choiceButtons[index];
-
-        // Wrap the text first
-        const wrappedText = this.wrapText(
-            text.text,
-            button.width * this.VISIBLE_TEXT_WIDTH,
-            50
-        );
-        text.setText(wrappedText);
-
-        // Start with maximum scale
-        text.setScale(this.MAX_TEXT_SCALE);
-
-        // Get the text bounds
-        const bounds = text.getTextBounds();
-        const textWidth = bounds.global.width;
-        const textHeight = bounds.global.height;
-
-        // If text is too wide or too tall, scale it down
-        if (textWidth > button.width * this.VISIBLE_TEXT_WIDTH ||
-            textHeight > button.height * this.VISIBLE_TEXT_HEIGHT) {
-            const widthScale = (button.width * this.VISIBLE_TEXT_WIDTH) / textWidth;
-            const heightScale = (button.height * this.VISIBLE_TEXT_HEIGHT) / textHeight;
-            const scale = Math.min(widthScale, heightScale, this.MAX_TEXT_SCALE);
-
-            // Ensure we don't go below minimum scale
-            const finalScale = Math.max(scale, this.MIN_TEXT_SCALE);
-            text.setScale(finalScale);
-        }
-    }
-
-    private wrapText(text: string, maxWidth: number, fontSize: number): string {
-        const words = text.split(' ');
-        let line = '';
-        let result = '';
-
-        for (let i = 0; i < words.length; i++) {
-            const testLine = line + (line ? ' ' : '') + words[i];
-            const temp = this.scene.add.bitmapText(0, 0, 'your_font', testLine, fontSize);
-            const width = temp.getTextBounds().global.width;
-            temp.destroy();
-
-            if (width > maxWidth && line) {
-                result += line + '\n';
-                line = words[i];
-            } else {
-                line = testLine;
             }
         }
 
-        if (line) result += line;
-        return result;
+        // Sequential typewriter effect for choices
+        if (links.length > 0) {
+            this.typewriters[0].start(
+                links[0].linkText,
+                this.choiceButtons[0].width,
+                this.choiceButtons[0].height,
+                30,
+                () => {
+                    if (links.length > 1) {
+                        // Make the second choice text visible right before animating
+                        this.choiceTexts[1].setVisible(true);
+                        this.typewriters[1].start(
+                            links[1].linkText,
+                            this.choiceButtons[1].width,
+                            this.choiceButtons[1].height,
+                            30
+                        );
+                    }
+                }
+            );
+        }
+
+        // Set up click handlers (these can be set immediately, as the buttons are visible)
+        for (let i = 0; i < links.length; i++) {
+            this.choiceButtons[i].on('pointerdown', () => {
+                (this.scene as VisualNovel).audioManager?.playChoiceSound(i);
+                this.hideChoices(); // Hide choices immediately after click
+                callback(links[i].passageId); // This is now a number
+            });
+        }
     }
 
     public hideChoices(): void {
         this.choiceButtons.forEach(button => button.setVisible(false));
-        this.choiceTexts.forEach(text => text.setVisible(false));
+        this.choiceTexts.forEach(text => {
+            text.setVisible(false);
+            text.setText('');
+        });
+    }
+
+    public skipTypewriter(index: number): void {
+        this.typewriters[index].skip(this.choiceButtons[index].width);
+    }
+
+    public isTypewriterRunning(index: number): boolean {
+        return this.typewriters[index] && this.typewriters[index].isRunning();
     }
 } 

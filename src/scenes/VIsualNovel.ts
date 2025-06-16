@@ -83,6 +83,8 @@ export default class VisualNovel extends Phaser.Scene {
 	private isTransitioning: boolean = false;
 	private blackScreen!: Phaser.GameObjects.Rectangle;
 	private loadingText!: Phaser.GameObjects.Text;
+	private skipCooldown = false;
+	private skipHandler?: () => void;
 
 	preload(): void {
 		// First load the manifest and story data
@@ -99,7 +101,6 @@ export default class VisualNovel extends Phaser.Scene {
 			// Load backgrounds
 			manifest.backgrounds.forEach((bgPath: string) => {
 				const key = bgPath.split('/').pop()?.split('.')[0] || '';
-				console.log(bgPath);
 				this.load.image(key, `assets/${bgPath}`);
 			});
 
@@ -165,7 +166,15 @@ export default class VisualNovel extends Phaser.Scene {
 	}
 
 	private showPassage(passageId: number): void {
+		console.log('[VN] showPassage', passageId);
 		if (this.isTransitioning) return;
+
+		// Remove any previous skip handler
+		if (this.skipHandler) {
+			console.log('[VN] Removing skip handler');
+			this.input.off('pointerdown', this.skipHandler);
+			this.skipHandler = undefined;
+		}
 
 		// Set transitioning state
 		this.isTransitioning = true;
@@ -196,14 +205,17 @@ export default class VisualNovel extends Phaser.Scene {
 		// Play voice over for the passage
 		this.audioManager.playVoiceOver(passage);
 
-		// Display the clean text
-		this.dialogManager.setText(passage.cleanText);
-
-		// Add a delay before making the dialog box clickable
-		this.time.delayedCall(1000, () => {
+		// Display the clean text with typewriter
+		console.log('[VN] Starting typewriter for dialog');
+		this.dialogManager.setTextWithTypewriter(passage.cleanText, 30, () => {
+			console.log('[VN] Typewriter finished for dialog, removing skip handler');
+			// Remove skip handler when typewriter is done
+			if (this.skipHandler) {
+				this.input.off('pointerdown', this.skipHandler);
+				this.skipHandler = undefined;
+			}
 			// Show choices if there are any
 			if (passage.links && passage.links.length > 0) {
-				// Always use ChoiceManager for any number of links (including single-link Continue)
 				this.choiceManager.showChoices(passage.links, (nextPassageId) => {
 					this.isTransitioning = false;
 					this.showPassage(nextPassageId);
@@ -213,6 +225,26 @@ export default class VisualNovel extends Phaser.Scene {
 				// No links, just end passage
 				this.isTransitioning = false;
 			}
+		});
+
+		// Add skip handler for this passage
+		this.skipHandler = () => {
+			console.log('[VN] Skip handler triggered');
+			if (this.dialogManager.isTypewriterRunning()) {
+				console.log('[VN] Skipping dialog typewriter');
+				this.dialogManager.skipTypewriter();
+			}
+			for (let i = 0; i < 2; i++) {
+				if (this.choiceManager.isTypewriterRunning(i)) {
+					console.log(`[VN] Skipping choice typewriter ${i}`);
+					this.choiceManager.skipTypewriter(i);
+				}
+			}
+		};
+		// Wait for pointerup before adding skip handler
+		this.input.once('pointerup', () => {
+			console.log('[VN] Adding skip handler (after pointerup)');
+			this.input.on('pointerdown', this.skipHandler!);
 		});
 	}
 	/* END-USER-CODE */

@@ -1,9 +1,11 @@
 import Phaser from 'phaser';
+import { Typewriter } from '../utils/Typewriter';
 
 export class DialogManager {
     private scene: Phaser.Scene;
     private dialogBox!: Phaser.GameObjects.Sprite;
     private dialogText!: Phaser.GameObjects.BitmapText;
+    private typewriter!: Typewriter;
     private readonly VISIBLE_TEXT_WIDTH = 0.95;
     private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.7;
     private readonly MIN_TEXT_SCALE = 0.5;
@@ -29,35 +31,37 @@ export class DialogManager {
         this.dialogText.setCenterAlign();
         this.dialogText.setLineSpacing(6);
         this.dialogText.setDepth(1001); // Ensure it's above the dialog box
+
+        // Create typewriter for dialog text
+        this.typewriter = new Typewriter(this.scene, this.dialogText, {
+            maxScale: this.MAX_TEXT_SCALE,
+            minScale: this.MIN_TEXT_SCALE,
+            visibleWidth: this.VISIBLE_TEXT_WIDTH,
+            visibleHeight: this.DIALOG_BOX_VISIBLE_HEIGHT,
+            fontSize: this.FONT_SIZE
+        });
     }
 
     public setText(text: string): void {
-        // Wrap the text first
-        const wrappedText = this.wrapText(text, this.dialogBox.width * this.VISIBLE_TEXT_WIDTH, this.FONT_SIZE);
+        // For instant text display (no typewriter)
+        const wrappedText = this.typewriter["wrapText"](text, this.dialogBox.width * this.VISIBLE_TEXT_WIDTH);
         this.dialogText.setText(wrappedText);
-        this.adjustTextScale();
+        const scale = this.typewriter["calculateFinalScale"](text, this.dialogBox.width, this.dialogBox.height);
+        this.dialogText.setScale(scale);
     }
 
-    private adjustTextScale(): void {
-        // Reset scale to maximum
-        this.dialogText.setScale(this.MAX_TEXT_SCALE);
+    public setTextWithTypewriter(text: string, speed: number = 30, onComplete?: () => void): void {
+        this.typewriter.start(
+            text,
+            this.dialogBox.width,
+            this.dialogBox.height,
+            speed,
+            onComplete
+        );
+    }
 
-        // Get the text bounds
-        const bounds = this.dialogText.getTextBounds();
-        const textWidth = bounds.global.width;
-        const textHeight = bounds.global.height;
-
-        // If text is too wide or too tall, scale it down
-        if (textWidth > this.dialogBox.width * this.VISIBLE_TEXT_WIDTH ||
-            textHeight > this.dialogBox.height * this.DIALOG_BOX_VISIBLE_HEIGHT) {
-            const widthScale = (this.dialogBox.width * this.VISIBLE_TEXT_WIDTH) / textWidth;
-            const heightScale = (this.dialogBox.height * this.DIALOG_BOX_VISIBLE_HEIGHT) / textHeight;
-            const scale = Math.min(widthScale, heightScale, this.MAX_TEXT_SCALE);
-
-            // Ensure scale doesn't go below minimum
-            const finalScale = Math.max(scale, this.MIN_TEXT_SCALE);
-            this.dialogText.setScale(finalScale);
-        }
+    public skipTypewriter(): void {
+        this.typewriter.skip(this.dialogBox.width);
     }
 
     public setClickHandler(callback: () => void): void {
@@ -67,27 +71,7 @@ export class DialogManager {
         });
     }
 
-    private wrapText(text: string, maxWidth: number, fontSize: number): string {
-        const words = text.split(' ');
-        let line = '';
-        let result = '';
-
-        for (let i = 0; i < words.length; i++) {
-            const testLine = line + (line ? ' ' : '') + words[i];
-            // Create a temp BitmapText to measure width
-            const temp = this.scene.add.bitmapText(0, 0, 'your_font', testLine, fontSize);
-            const width = temp.getTextBounds().global.width;
-            temp.destroy();
-
-            if (width > maxWidth && line) {
-                result += line + '\n';
-                line = words[i];
-            } else {
-                line = testLine;
-            }
-        }
-
-        if (line) result += line;
-        return result;
+    public isTypewriterRunning(): boolean {
+        return this.typewriter && this.typewriter.isRunning();
     }
 } 
