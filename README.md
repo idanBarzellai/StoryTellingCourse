@@ -1,4 +1,156 @@
+<<<<<<< Updated upstream
 # Webpack + TypeScript project template for Phaser Editor v4
+=======
+# Jack and the Beanstalk - Storytelling Game Template
+
+A **Phaser 3** template for creating visual novel-style storytelling games. This project is designed to be **customized with your own assets** while preserving core mechanics like dialog, branching paths, and character emotion animations.
+
+---
+
+## 🚀 Getting Started
+
+### Requirements
+- [Node.js](https://nodejs.org)
+- [npm](https://www.npmjs.com)
+
+### Setup Instructions
+
+```bash
+npm install       # Install dependencies
+npm update        # Optional: update packages
+npm start         # Launch development server
+```
+
+Open your browser at [http://127.0.0.1:8080](http://127.0.0.1:8080).
+
+### Production Build
+
+```bash
+npm run build
+```
+
+Build output is placed in the `/dist` directory.
+
+---
+
+## 📁 Asset Requirements
+
+Replace the contents of the `/assets/` folder with your own, following the required structure and naming conventions.
+
+### Asset Folder Structure
+
+```
+assets/
+├── bg/             # Background images (e.g., scenery_0.png)
+├── characters/
+│   ├── main_char/  # Player character expressions
+│   └── npc_1/, npc_2/, etc.
+├── fonts/          # Bitmap fonts
+├── sounds/         # Audio and SFX
+├── UI/             # UI elements like buttons, dialog box
+```
+
+### Notes
+- Maintain original naming conventions.
+- Keep paths consistent with `manifest.json`.
+- Optimize assets for web use (compressed images and audio).
+
+---
+
+## 📦 Using the Manifest File
+
+The file `/assets/manifest.json` defines all loadable assets.
+
+```json
+{
+  "backgrounds": ["bg/scenery_0.png", "bg/scenery_1.png", etc],
+  "characters": {
+    "main_char": ["main_char.png", "happy.png", "sad.png", etc],
+    "npc_1": ["npc_1.png", "happy.png", etc],
+    etc
+  },
+  "audio": {
+    "bgm": "sounds/bg.mp3",
+    "choices": ["sounds/choice_1.wav", "sounds/choice_2.wav"]
+  },
+  "ui": ["UI/choice_button.png", "UI/dialog_box.png"],
+  "fonts": {
+    "bitmap": {
+      "texture": "fonts/your_font.png",
+      "data": "fonts/your_font.xml"
+    }
+  }
+}
+```
+
+---
+
+### 🧩 Manifest Structure Breakdown
+
+- **`backgrounds`**: List of background images  
+  _(e.g., `"bg/scenery_0.png"`)_
+
+- **`characters`**: Map of character folders to emotion images  
+  _(first image is considered default/neutral)_
+
+- **`audio.bgm`**: Background music path  
+- **`audio.choices`**: Array of choice sound effects  
+- **`ui`**: List of UI images  
+- **`fonts.bitmap`**: Bitmap font reference (`.png` and `.xml`)
+
+---
+
+### 🛠 Adding New Assets
+
+1. Place files in their appropriate folders.
+2. Add them to `manifest.json`.
+3. Use consistent naming (e.g., `happy.png`, `sad.png`).
+4. Ensure paths are relative to the `assets/` directory.
+
+---
+
+## 😃 Available Character Emotions
+
+Each emotion can trigger different animations:
+
+### Happy Emotions
+- `happy`, `laugh`, `excited` — _gentle up/down bounce_
+
+### Sad Emotions
+- `sad`, `sleeping`, `crying` — _slow left sway_
+
+### Intense Emotions
+- `stressed`, `shocked`, `surprised`, `angry` — _quick pulse_
+
+### Thoughtful Emotions
+- `confused`, `annoyed`, `suspicious` — _slow right sway_
+
+### Example Usage in Story JSON
+
+```json
+"emotions": [
+  { "character": "main_char", "emotion": "happy" },
+  { "character": "npc_1", "emotion": "angry" }
+]
+```
+
+> 💡 Each character must include corresponding emotion images in their asset folder (e.g., `npc_1/angry.png`).
+
+---
+
+## 📚 Additional Notes
+
+- All asset paths in the manifest must be **relative to the `assets/` folder**.
+- Avoid renaming the folder structure unless you update all relevant references.
+- This template is ideal for creating modular, story-driven games with support for branching dialogue and emotion-based character visuals.
+
+---
+
+Happy storytelling! 🌱
+
+
+## 📖 Creating Your Own Story (`story.json` Format)
+>>>>>>> Stashed changes
 
 A project template for Phaser 3, Webpack 5, TypeScript, and Phaser Editor v4.
 It also includes a workflow for deploying the game to GitHub Pages.
@@ -48,6 +200,7 @@ If you don't want to deploy your game to GitHub Pages, then you can remove the `
 
 In this video I explain many of these concepts: [Start making a game in the cloud. GitHub + VS Code + Phaser Editor [Tutorial]](https://www.youtube.com/watch?v=lndU7UAjzgo&t=183s)
 
+<<<<<<< Updated upstream
 ## Phaser Editor considerations
 
 ### Excluding files from the project
@@ -104,3 +257,21 @@ You can add your script nodes to the `src/script-nodes` folder.
 ## About
 
 This project template was created by the Phaser Studio team.
+=======
+```json
+{
+  "id": 4,
+  "cleanText": "Jack: \"Look what I got instead!\"",
+  "speaker": "main_char",
+  "background": "scenery_0",
+  "emotions": [
+    { "character": "main_char", "emotion": "Happy" },
+    { "character": "npc_1", "emotion": "Sad" }
+  ],
+  "links": [
+    { "linkText": "Mother is furious", "passageId": 13 },
+    { "linkText": "Mother is kind", "passageId": 14 }
+  ]
+}
+```
+>>>>>>> Stashed changes
