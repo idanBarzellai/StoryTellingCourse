@@ -73,7 +73,6 @@ export default class Preload extends Phaser.Scene {
 
 			if (start) {
 
-				console.log(`Development: jump to ${start}`);
 				this.scene.start(start);
 
 				return;
