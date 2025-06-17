@@ -15,7 +15,7 @@
         {
             "type": "Sprite",
             "id": "e8f8ee57-1218-445e-8402-242645be67e0",
-            "label": "jack",
+            "label": "main_char",
             "texture": {
                 "key": "happy"
             },
@@ -27,9 +27,9 @@
         {
             "type": "Sprite",
             "id": "99201d82-7efe-49a1-91c9-875be454a94b",
-            "label": "other_chars",
+            "label": "npc_1",
             "texture": {
-                "key": "mother"
+                "key": "angry"
             },
             "x": 376,
             "y": 300,

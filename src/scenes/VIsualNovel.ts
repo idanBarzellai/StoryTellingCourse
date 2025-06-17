@@ -1,61 +1,19 @@
-// You can write more code here
+import Phaser from 'phaser';
+import { CharacterManager } from '../managers/CharacterManager';
+import { DialogManager } from '../managers/DialogManager';
+import { ChoiceManager } from '../managers/ChoiceManager';
+import { BackgroundManager } from '../managers/BackgroundManager';
+import { AudioManager } from '../managers/AudioManager';
+import { StoryManager } from '../managers/StoryManager';
+import { IPassage } from '../interfaces/IStoryData';
+import { UIManager } from '../managers/UIManager';
 
 /* START OF COMPILED CODE */
 
 /* START-USER-IMPORTS */
-import Phaser from 'phaser';
 /* END-USER-IMPORTS */
 
 export default class VisualNovel extends Phaser.Scene {
-	private jack!: Phaser.GameObjects.Sprite;
-	private other_chars!: Phaser.GameObjects.Sprite;
-	private dialog_box!: Phaser.GameObjects.Sprite;
-	private dialog_text!: Phaser.GameObjects.BitmapText;
-	private choice_button_1!: Phaser.GameObjects.Sprite;
-	private choice_button_2!: Phaser.GameObjects.Sprite;
-	private dialog_choice_1!: Phaser.GameObjects.BitmapText;
-	private dialog_choice_2!: Phaser.GameObjects.BitmapText;
-	private storyData: any = null;
-	private currentPassage: any = null;
-	private background!: Phaser.GameObjects.Image;
-	private backgroundMusic!: Phaser.Sound.BaseSound;
-	private isTransitioning: boolean = false;
-	private muteButton!: Phaser.GameObjects.Image;
-	private isMuted: boolean = false;
-
-	// Add constants for text scaling
-	private readonly MIN_TEXT_SCALE = 0.5;
-	private readonly MAX_TEXT_SCALE = 1.0;
-	private readonly TEXT_SCALE_STEP = 0.1;
-
-	private readonly VISIBLE_TEXT_WIDTH = 0.9;
-	private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.45;
-	private readonly CHOICE_BOX_VISIBLE_HEIGHT = 0.6;
-
-
-	// Add background mapping array
-	private readonly backgroundMapping: { [key: string]: string } = {
-		// Exposition and Opening scenes
-		'1': 'village',    // Exposition (original)
-		'2': 'village',    // Market Journey
-		'3': 'road',       // Turning Point (original updated)
-		'4': 'village',    // Opening (original updated)
-		'5': 'vine',       // Bottleneck Event continue (original updated)
-		'5a': 'castle',      // Bottleneck Event continue (Part 2)
-		'6': 'giant_castle',     // Plot (original)
-		'7': 'inside_castle', // Turning Point 2 (original updated)
-		'8': 'vine',       // Peak (original)
-		'9': 'village',    // Closure (original)
-		'10': 'village', // Ending (original)
-		'11': 'road',      // Opening (alternative)
-		'12': 'village',   // Bottleneck Event (original updated)
-		'13': 'village',    // Bottleneck Event (alternative)
-		'14': 'road',      // Plot (alternative)
-		'15': 'road',   // Turning Point 2 (alternative)
-		'16': 'road',   // Peak (alternative)
-		'17': 'black',   // Ending (alternative)
-		'18': 'inside_castle',   // Peak (alternative 2)
-	};
 
 	constructor() {
 		super("VisualNovel");
@@ -66,411 +24,240 @@ export default class VisualNovel extends Phaser.Scene {
 	}
 
 	editorCreate(): void {
-		// background
-		this.background = this.add.image(640, 360, "village");
-		this.background.setScale(1);
+		// Add black screen first
+		this.blackScreen = this.add.rectangle(0, 0, 1280, 720, 0x000000).setOrigin(0);
+		this.blackScreen.setDepth(9999); // Ensure it's above everything
 
-		// jack
-		this.jack = this.add.sprite(880, 300, "happy");
-		this.jack.scaleX = 0.25;
-		this.jack.scaleY = 0.25;
+		// Add loading text
+		this.loadingText = this.add.text(640, 360, "Loading...", {
+			fontSize: '32px',
+			color: '#ffffff'
+		}).setOrigin(0.5);
+		this.loadingText.setDepth(10000); // Ensure it's above the black screen
 
-		// other_chars
-		this.other_chars = this.add.sprite(400, 300, "mother");
-		this.other_chars.scaleX = 0.25;
-		this.other_chars.scaleY = 0.25;
+		// main_char
+		const main_char = this.add.sprite(880, 308, "happy");
+		main_char.scaleX = 0.25;
+		main_char.scaleY = 0.25;
+
+		// npc_1
+		const npc_1 = this.add.sprite(400, 300, "angry");
+		npc_1.scaleX = 0.25;
+		npc_1.scaleY = 0.25;
 
 		// dialog_box
-		this.dialog_box = this.add.sprite(640, 500, "dialog_box");
-		this.dialog_box.scaleX = 1;
-		this.dialog_box.scaleY = 1;
-		this.dialog_box.setInteractive();
+		const dialog_box = this.add.sprite(640, 535, "dialog_box");
+		dialog_box.scaleX = 0.5;
+		dialog_box.scaleY = 0.5;
 
-		// Calculate dialog box visible area (excluding transparent parts)
-
-		// dialog_text with proper boundaries
-		this.dialog_text = this.add.bitmapText(640, 465, 'children_book_font', "Story will begin here...", 50);
-		this.dialog_text.setOrigin(0.5);
-		this.dialog_text.scaleX = 1;
-		this.dialog_text.scaleY = 1;
-		// Set max width to visible area width
-		this.dialog_text.setMaxWidth(this.dialog_box.width * this.VISIBLE_TEXT_WIDTH);
-		this.dialog_text.setCenterAlign();
-		this.dialog_text.setLineSpacing(6);
+		// dialog_text
+		const dialog_text = this.add.text(640, 480, "", {});
+		dialog_text.text = "New text";
+		dialog_text.setStyle({});
 
 		// choice_button_1
-		this.choice_button_1 = this.add.sprite(400, 645, "choice_button");
-		this.choice_button_1.setInteractive();
+		this.add.sprite(400, 640, "choice_button");
 
 		// choice_button_2
-		this.choice_button_2 = this.add.sprite(880, 645, "choice_button");
-		this.choice_button_2.setInteractive();
+		this.add.sprite(880, 640, "choice_button");
 
-		// Calculate choice button visible area
+		// dialog_choice_2
+		const dialog_choice_2 = this.add.text(880, 640, "", {});
+		dialog_choice_2.text = "New text";
+		dialog_choice_2.setStyle({});
 
-		// dialog_choice_1 with proper boundaries
-		this.dialog_choice_1 = this.add.bitmapText(400, 645, 'children_book_font', "", 50);
-		this.dialog_choice_1.setOrigin(0.5);
-		this.dialog_choice_1.scaleX = 1;
-		this.dialog_choice_1.scaleY = 1;
-		// Set max width to visible area width
-		this.dialog_choice_1.setMaxWidth(this.choice_button_1.width * this.VISIBLE_TEXT_WIDTH);
-		this.dialog_choice_1.setCenterAlign();
-
-		// dialog_choice_2 with proper boundaries
-		this.dialog_choice_2 = this.add.bitmapText(880, 645, 'children_book_font', "", 50);
-		this.dialog_choice_2.setOrigin(0.5);
-		this.dialog_choice_2.scaleX = 1;
-		this.dialog_choice_2.scaleY = 1;
-		// Set max width to visible area width
-		this.dialog_choice_2.setMaxWidth(this.choice_button_2.width * this.VISIBLE_TEXT_WIDTH);
-		this.dialog_choice_2.setCenterAlign();
-
-		// Mute button (top left)
-		this.muteButton = this.add.image(28, 40, 'unmute').setOrigin(0.5).setScale(0.5).setInteractive({ useHandCursor: true });
-		this.muteButton.setScrollFactor(0);
-		this.muteButton.setDepth(1000);
-		this.muteButton.on('pointerdown', () => {
-			this.isMuted = !this.isMuted;
-			this.sound.mute = this.isMuted;
-			// If you have an unmute icon, swap texture:
-			this.muteButton.setTexture(this.isMuted ? 'mute' : 'unmute');
-		});
+		// dialog_choice_1
+		const dialog_choice_1 = this.add.text(400, 640, "", {});
+		dialog_choice_1.text = "New text";
+		dialog_choice_1.setStyle({});
 
 		this.events.emit("scene-awake");
 	}
 
 	/* START-USER-CODE */
+	private characterManager!: CharacterManager;
+	private dialogManager!: DialogManager;
+	private choiceManager!: ChoiceManager;
+	private backgroundManager!: BackgroundManager;
+	public audioManager!: AudioManager;
+	private storyManager!: StoryManager;
+	private isTransitioning: boolean = false;
+	private blackScreen!: Phaser.GameObjects.Rectangle;
+	private loadingText!: Phaser.GameObjects.Text;
+	private skipCooldown = false;
+	private skipHandler?: () => void;
+	private uiManager!: UIManager;
 
 	preload(): void {
-		// Load the story JSON
+		// First load the manifest and story data
+		this.load.json('manifest', 'assets/manifest.json');
 		this.load.json('story', 'assets/story.json');
 
-		// Load background music
-		this.load.audio('background_music', 'assets/sounds/bg.mp3');
+		this.load.once('complete', () => {
+			const manifest = this.cache.json.get('manifest');
 
-		// Load bitmap font
-		this.load.bitmapFont('children_book_font', 'assets/fonts/children_book_font.png', 'assets/fonts/children_book_font.xml');
+			// Load font first since other components depend on it
+			const fontData = manifest.fonts.bitmap;
+			this.load.bitmapFont('your_font', `assets/${fontData.texture}`, `assets/${fontData.data}`);
 
-		// Load background images
-		this.load.image('castle', 'assets/bg/castle.png');
-		this.load.image('giant_castle', 'assets/bg/giant_castle.png');
-		this.load.image('road', 'assets/bg/road.png');
-		this.load.image('village', 'assets/bg/village.png');
-		this.load.image('vine', 'assets/bg/vine.png');
-		this.load.image('inside_castle', 'assets/bg/inside_castle.png');
-		this.load.image('black', 'assets/bg/black.png');
+			// Load backgrounds
+			manifest.backgrounds.forEach((bgPath: string) => {
+				const key = bgPath.split('/').pop()?.split('.')[0] || '';
+				this.load.image(key, `assets/${bgPath}`);
+			});
 
-		// Load Jack's sprites
-		this.load.image('jack_happy', 'assets/jack/happy.png');
-		this.load.image('jack_sad', 'assets/jack/sad.png');
-		this.load.image('jack_crying', 'assets/jack/crying.png');
-		this.load.image('jack_stressed', 'assets/jack/stressed.png');
-		this.load.image('jack_confused', 'assets/jack/confused.png');
+			// Load character expressions
+			Object.entries(manifest.characters).forEach(([charName, expressions]) => {
+				(expressions as string[]).forEach((expr: string) => {
+					const key = `${charName}_${expr.split('.')[0]}`;
+					this.load.image(key, `assets/characters/${charName}/${expr}`);
+				});
+			});
 
-		// Load Mother's sprites
-		this.load.image('mother_happy', 'assets/mother/happy.png');
-		this.load.image('mother_sad', 'assets/mother/sad.png');
-		this.load.image('mother_angry', 'assets/mother/angry.png');
+			// Load audio
+			this.load.audio('background_music', `assets/${manifest.audio.bgm}`);
+			manifest.audio.choices.forEach((choiceSound: string, idx: number) => {
+				this.load.audio(`choice_${idx + 1}`, `assets/${choiceSound}`);
+			});
 
-		// Load Wizard's sprites
-		this.load.image('wizard_suspicious', 'assets/wizard/suspicious.png');
-		this.load.image('wizard_annoyed', 'assets/wizard/annoyed.png');
-		this.load.image('wizard_laugh', 'assets/wizard/laugh.png');
+			// Load UI
+			manifest.ui.forEach((uiAsset: string) => {
+				const key = uiAsset.split('/').pop()?.split('.')[0];
+				this.load.image(key as string, `assets/${uiAsset}`);
+			});
 
-		// Load Giant's sprites
-		this.load.image('giant_angry', 'assets/giant/angry.png');
-		this.load.image('giant_sleeping', 'assets/giant/sleeping.png');
+			// Start loading all assets
+			this.load.start();
+		});
 
-		// Load UI elements
-		this.load.image('choice_button', 'assets/UI/choice_button.png');
-		this.load.image('dialog_box', 'assets/UI/dialog_box.png');
-
-		// Load choice button sounds
-		this.load.audio('choice_1', 'assets/sounds/choice_1.wav');
-		this.load.audio('choice_2', 'assets/sounds/choice_2.wav');
-
-		// Load mute button image
-		this.load.image('mute', 'assets/UI/mute.png');
-		this.load.image('unmute', 'assets/UI/unmute.png');
+		this.load.start(); // Load the manifest and story
 	}
 
 	create(): void {
 		this.editorCreate();
 
-		// Load the story data
-		this.storyData = this.cache.json.get('story');
+		// Wait for all assets to be loaded before creating managers
+		this.load.once('complete', () => {
+			// Initialize managers
+			this.dialogManager = new DialogManager(this);
+			this.choiceManager = new ChoiceManager(this);
+			this.backgroundManager = new BackgroundManager(this);
+			this.audioManager = new AudioManager(this);
+			this.storyManager = new StoryManager();
 
-		// Play background music in loop
-		this.backgroundMusic = this.sound.add('background_music', {
-			volume: 0.03,
-			loop: true
-		});
-		this.backgroundMusic.play();
+			// Initialize character manager after ensuring all textures are loaded
+			this.characterManager = new CharacterManager(this);
 
-		// Start with the first passage
-		this.showPassage('Exposition (original)');
-	}
-
-	private adjustTextScale(text: Phaser.GameObjects.BitmapText, maxWidth: number, maxHeight: number): void {
-		// Reset scale to maximum
-		text.setScale(this.MAX_TEXT_SCALE);
-
-		// Get the text bounds
-		const bounds = text.getTextBounds();
-		const textWidth = bounds.global.width;
-		const textHeight = bounds.global.height;
-
-		// If text is too wide or too tall, scale it down
-		if (textWidth > maxWidth || textHeight > maxHeight) {
-			const widthScale = maxWidth / textWidth;
-			const heightScale = maxHeight / textHeight;
-			const scale = Math.min(widthScale, heightScale, this.MAX_TEXT_SCALE);
-
-			// Ensure scale doesn't go below minimum
-			const finalScale = Math.max(scale, this.MIN_TEXT_SCALE);
-			text.setScale(finalScale);
-		}
-	}
-
-	private showPassage(passageName: string): void {
-		if (!this.storyData || this.isTransitioning) return;
-
-		// Set transitioning state to true
-		this.isTransitioning = true;
-
-		// Find the passage in the story data
-		const foundPassage = this.storyData.passages.find((p: any) => p.name === passageName);
-		if (!foundPassage) {
-			this.isTransitioning = false;
-			return;
-		}
-		this.currentPassage = foundPassage;
-
-		// Update background based on passage
-		this.updateBackground(passageName);
-
-		// Hide all characters initially
-		this.jack.setVisible(false);
-		this.other_chars.setVisible(false);
-
-		// Process character emotions from the text
-		const lines = this.currentPassage.text.split('\n');
-		for (const line of lines) {
-			if (line.startsWith('[') && line.includes(':')) {
-				const [character, emotion] = line.slice(1, -1).split(':');
-				this.updateCharacter(character, emotion);
-			}
-		}
-
-		// Display the clean text and adjust its scale
-		this.dialog_text.setText(this.currentPassage.cleanText);
-		this.adjustTextScale(
-			this.dialog_text,
-			this.dialog_box.width * this.VISIBLE_TEXT_WIDTH,
-			this.dialog_box.height * this.DIALOG_BOX_VISIBLE_HEIGHT
-		);
-
-		// Hide choice buttons and text initially
-		this.choice_button_1.setVisible(false);
-		this.choice_button_2.setVisible(false);
-		this.dialog_choice_1.setVisible(false);
-		this.dialog_choice_2.setVisible(false);
-
-		// Add a delay before making the dialog box clickable
-		this.time.delayedCall(1000, () => {
-			// Handle special navigation links (-> -> format)
-			const specialLink = this.currentPassage.text.match(/\[\[-> ->([^\]]+)\]\]/);
-			if (specialLink) {
-				const nextPassageId = specialLink[1];
-				// Make dialog box clickable to progress
-				this.dialog_box.once('pointerdown', () => {
-					const nextPassage = this.storyData.passages.find((p: any) => p.id === nextPassageId);
-					if (nextPassage) {
-						this.showPassage(nextPassage.name);
-					}
-				});
-				this.isTransitioning = false;
+			// Load and start the story
+			const storyData = this.cache.json.get('story');
+			if (!storyData) {
+				console.error('Story data not found! Make sure story.json is loaded correctly.');
 				return;
 			}
 
-			// Show choice buttons if there are any
-			if (this.currentPassage.links && this.currentPassage.links.length > 0) {
-				// Show first choice
-				if (this.currentPassage.links[0]) {
-					this.choice_button_1.setVisible(true);
-					this.dialog_choice_1.setVisible(true);
-					const wrappedChoice1 = this.wrapBitmapText(
-						this.currentPassage.links[0].linkText,
-						this.choice_button_1.width * this.VISIBLE_TEXT_WIDTH,
-						50
-					);
-					this.dialog_choice_1.setText(wrappedChoice1);
-					this.adjustTextScale(
-						this.dialog_choice_1,
-						this.choice_button_1.width * this.VISIBLE_TEXT_WIDTH,
-						this.choice_button_1.height * this.CHOICE_BOX_VISIBLE_HEIGHT
-					);
-					this.choice_button_1.once('pointerdown', () => {
-						this.sound.play('choice_1', { volume: 0.05 });
-						// Find the passage by ID or name
-						const nextPassage = this.storyData.passages.find((p: any) =>
-							p.id === this.currentPassage.links[0].passageName ||
-							p.name === this.currentPassage.links[0].passageName
-						);
-						if (nextPassage) {
-							this.showPassage(nextPassage.name);
-						} else {
-							console.error('Passage not found:', this.currentPassage.links[0].passageName);
-							this.isTransitioning = false;
-						}
-					});
-				}
+			this.storyManager.loadStoryData(storyData);
+			this.audioManager.playBackgroundMusic();
 
-				// Show second choice if it exists
-				if (this.currentPassage.links[1]) {
-					this.choice_button_2.setVisible(true);
-					this.dialog_choice_2.setVisible(true);
-					const wrappedChoice2 = this.wrapBitmapText(
-						this.currentPassage.links[1].linkText,
-						this.choice_button_2.width * this.VISIBLE_TEXT_WIDTH,
-						50
-					);
-					this.dialog_choice_2.setText(wrappedChoice2);
-					this.adjustTextScale(
-						this.dialog_choice_2,
-						this.choice_button_2.width * this.VISIBLE_TEXT_WIDTH,
-						this.choice_button_2.height * this.CHOICE_BOX_VISIBLE_HEIGHT
-					);
-					this.choice_button_2.once('pointerdown', () => {
-						this.sound.play('choice_2', { volume: 0.05 });
-						// Find the passage by ID or name
-						const nextPassage = this.storyData.passages.find((p: any) =>
-							p.id === this.currentPassage.links[1].passageName ||
-							p.name === this.currentPassage.links[1].passageName
-						);
-						if (nextPassage) {
-							this.showPassage(nextPassage.name);
-						} else {
-							console.error('Passage not found:', this.currentPassage.links[1].passageName);
-							this.isTransitioning = false;
-						}
-					});
-				}
-			}
-			this.isTransitioning = false;
+			// Remove black screen and loading text after everything is loaded
+			this.blackScreen.destroy();
+			this.loadingText.destroy();
+
+			// Create UIManager (handles mute and auto-play buttons)
+			this.uiManager = new UIManager(this, undefined, (isMuted) => {
+				this.audioManager.setMuted(isMuted);
+			});
+
+			// Start with the first passage
+			this.showPassage(1);
 		});
 	}
 
-	private updateCharacter(character: string, emotion: string): void {
-		const characterKey = character.toLowerCase();
-		const emotionKey = emotion.toLowerCase();
-		const textureKey = `${characterKey}_${emotionKey}`;
+	private showPassage(passageId: number): void {
+		console.log('[VN] showPassage', passageId);
+		if (this.isTransitioning) return;
 
-		if (character === 'Jack') {
-			// Update Jack's emotion and make him visible
-			this.jack.setTexture(textureKey);
-			this.jack.setVisible(true);
-		} else {
-			// Update other character and make them visible
-			this.other_chars.setTexture(textureKey);
-			this.other_chars.setVisible(true);
+		// Remove any previous skip handler
+		if (this.skipHandler) {
+			console.log('[VN] Removing skip handler');
+			this.input.off('pointerdown', this.skipHandler);
+			this.skipHandler = undefined;
 		}
 
-		// Add emotion-specific animations
-		const sprite = character === 'Jack' ? this.jack : this.other_chars;
-		switch (emotionKey) {
-			case 'happy':
-				this.tweens.add({
-					targets: sprite,
-					y: sprite.y - 5,
-					duration: 1000,
-					yoyo: true,
-					repeat: -1
-				});
-				break;
-			case 'sad':
-			case 'crying':
-				this.tweens.add({
-					targets: sprite,
-					angle: -2,
-					duration: 1500,
-					yoyo: true,
-					repeat: -1
-				});
-				break;
-			case 'stressed':
-			case 'angry':
-				this.tweens.add({
-					targets: sprite,
-					scaleX: sprite.scaleX * 1.04,
-					duration: 500,
-					yoyo: true,
-					repeat: -1
-				});
-				break;
-			case 'confused':
-			case 'suspicious':
-				this.tweens.add({
-					targets: sprite,
-					angle: 2,
-					duration: 2000,
-					yoyo: true,
-					repeat: -1
-				});
-				break;
+		// Set transitioning state
+		this.isTransitioning = true;
+
+		// Get the passage
+		const passage = this.storyManager.getPassageById(passageId);
+		if (!passage) {
+			console.error(`Passage with ID ${passageId} not found`);
+			this.isTransitioning = false;
+			return;
 		}
-	}
 
-	private updateBackground(passageName: string): void {
-		// Find the passage by name to get its ID
-		const passage = this.storyData.passages.find((p: any) => p.name === passageName);
-		if (!passage) return;
+		// Update current passage
+		this.storyManager.setCurrentPassage(passage);
 
-		// Get the background key from our mapping
-		const backgroundKey = this.backgroundMapping[passage.id];
+		// Update background
+		this.backgroundManager.updateBackground(passage);
 
-		// If no background is specified or it's an empty string, show black background
-		if (!backgroundKey) {
-			this.background.setTexture('black');
-			// If black texture doesn't exist, create a black rectangle
-			if (!this.textures.exists('black')) {
-				const graphics = this.make.graphics();
-				graphics.fillStyle(0x000000);
-				graphics.fillRect(0, 0, 1280, 720);
-				graphics.generateTexture('black', 1280, 720);
-				graphics.destroy();
+		// Hide all characters initially
+		this.characterManager.hideAllCharacters();
+
+		// Process character emotions
+		const emotions = this.storyManager.getCharacterEmotions(passage);
+		emotions.forEach(({ character, emotion }) => {
+			this.characterManager.updateCharacter(character, emotion);
+		});
+
+		// Play voice over for the passage
+		this.audioManager.playVoiceOver(passage);
+
+		// Display the clean text with typewriter
+		console.log('[VN] Starting typewriter for dialog');
+		this.dialogManager.setTextWithTypewriter(passage.cleanText, 30, () => {
+			console.log('[VN] Typewriter finished for dialog, removing skip handler');
+			// Remove skip handler when typewriter is done
+			if (this.skipHandler) {
+				this.input.off('pointerdown', this.skipHandler);
+				this.skipHandler = undefined;
 			}
-		} else {
-			this.background.setTexture(backgroundKey);
-		}
-	}
-
-	// Helper to wrap text for BitmapText
-	private wrapBitmapText(text: string, maxWidth: number, fontSize: number): string {
-		const words = text.split(' ');
-		let line = '';
-		let result = '';
-		for (let i = 0; i < words.length; i++) {
-			const testLine = line + (line ? ' ' : '') + words[i];
-			// Create a temp BitmapText to measure width
-			const temp = this.add.bitmapText(0, 0, 'children_book_font', testLine, fontSize);
-			const width = temp.getTextBounds().global.width;
-			temp.destroy();
-			if (width > maxWidth && line) {
-				result += line + '\n';
-				line = words[i];
+			// Show choices if there are any
+			if (passage.links && passage.links.length > 0) {
+				this.choiceManager.showChoices(passage.links, (nextPassageId) => {
+					this.isTransitioning = false;
+					this.showPassage(nextPassageId);
+				}, this.uiManager.getAutoPlay());
 			} else {
-				line = testLine;
+				this.choiceManager.hideChoices();
+				// No links, just end passage
+				this.isTransitioning = false;
 			}
+		});
+		if (this.uiManager.getAutoPlay()) {
+			this.dialogManager.skipTypewriter();
 		}
-		if (line) result += line;
-		return result;
-	}
-}
-/* END-USER-CODE */
 
+		// Add skip handler for this passage
+		this.skipHandler = () => {
+			console.log('[VN] Skip handler triggered');
+			if (this.dialogManager.isTypewriterRunning()) {
+				console.log('[VN] Skipping dialog typewriter');
+				this.dialogManager.skipTypewriter();
+			}
+			for (let i = 0; i < 2; i++) {
+				if (this.choiceManager.isTypewriterRunning(i)) {
+					console.log(`[VN] Skipping choice typewriter ${i}`);
+					this.choiceManager.skipTypewriter(i);
+				}
+			}
+		};
+		// Wait for pointerup before adding skip handler
+		this.input.once('pointerup', () => {
+			console.log('[VN] Adding skip handler (after pointerup)');
+			this.input.on('pointerdown', this.skipHandler!);
+		});
+	}
+	/* END-USER-CODE */
+}
 
 /* END OF COMPILED CODE */
-
-// You can write more code here
