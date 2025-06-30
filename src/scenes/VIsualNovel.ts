@@ -36,7 +36,7 @@ export default class VisualNovel extends Phaser.Scene {
 		this.loadingText.setDepth(10000); // Ensure it's above the black screen
 
 		// main_char
-		const main_char = this.add.sprite(880, 308, "happy");
+		const main_char = this.add.sprite(880, 300, "happy");
 		main_char.scaleX = 0.25;
 		main_char.scaleY = 0.25;
 

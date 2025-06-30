@@ -10,7 +10,7 @@ export class DialogManager {
     private readonly DIALOG_BOX_VISIBLE_HEIGHT = 0.7;
     private readonly MIN_TEXT_SCALE = 0.5;
     private readonly MAX_TEXT_SCALE = 1.0;
-    private readonly FONT_SIZE = 50;
+    private readonly FONT_SIZE = 30;
 
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
