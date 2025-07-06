@@ -58,7 +58,7 @@ module.exports = {
         },
         open: true,
         hot: true,
-        port: 8081,
+        port: 8080,
     },
     plugins: [
         new HtmlWebpackPlugin({

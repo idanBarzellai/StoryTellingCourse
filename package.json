@@ -6,7 +6,16 @@
   "scripts": {
     "start": "webpack serve --mode=development --stats-error-details --node-env development",
     "build": "webpack --mode=production --node-env production && phaser-asset-pack-hashing -r dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "node scripts/setupCharacters.js",
+    "trim": "node scripts/trimHtmlScript.js assets/output.html",
+    "convert": "node scripts/convertToStoryJson.js assets/output.html assets/story.json",
+    "manifest": "node scripts/generateManifest.js assets/manifest.json",
+    "emotions": "node scripts/addEmotions.js assets/story.json assets/manifest.json assets/story.json",
+    "fix-assets": "node scripts/fixAssetNames.js",
+    "story": "node scripts/processStory.js",
+    "standardize": "node scripts/standardizeAssets.js",
+    "apply-standardized": "node scripts/applyStandardizedAssets.js"
   },
   "author": "Phaser Editor 2D <developers@phasereditor2d.com> (https://phasereditor2d.com/)",
   "license": "MIT",
@@ -19,7 +28,9 @@
     "copy-webpack-plugin": "^8.1.0",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.3.1",
+    "jsdom": "^22.1.0",
     "phaser-asset-pack-hashing": "^1.0.5",
+    "sharp": "^0.33.0",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",

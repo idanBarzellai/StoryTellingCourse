@@ -1,17 +1,66 @@
-# Jack and the Beanstalk - Storytelling Game Template
+# Story Telling Platform Creator
 
 A **Phaser 3** template for creating visual novel-style storytelling games. This project is designed to be **customized with your own assets** while preserving core mechanics like dialog, branching paths, and character emotion animations.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Quick Start Guide
+
+### 1. Copy the Repository
+Clone or download this repository to your local machine.
+
+### 2. Replace Assets
+Change the relevant assets in the `assets/` folder:
+- **Backgrounds**: Replace images in `assets/bg/`
+- **Characters**: Replace character images in `assets/characters/`
+- **UI/Fonts/Music**: If you want to change these, keep the same naming and size. For fonts, ensure all characters are supported.
+
+### 3. Add Your Story
+Add your Twine exported HTML file to the `assets/` folder.
+
+### 4. Process Your Story
+Open the terminal in your IDE code editor or CMD and run:
+```bash
+npm run story
+```
+Answer all the relevant questions that the script will ask you and wait for it to complete.
+
+### 5. Test Locally
+Run the following command in your IDE terminal or CMD:
+```bash
+npm start
+```
+
+### 6. Customize Story (Optional)
+To update story passage connections, emotions, or scene backgrounds, open the file `assets/story.json` and adjust what you need.
+
+### 7. Export for Itch.io
+To export the game and upload to itch.io, run:
+```bash
+npm run build
+```
+This will create a `dist` folder. Zip it and upload to itch.io.
+
+---
+
+## ⚠️ Important Adjustments Required
+
+**Character Direction**: Make sure the characters are facing in the correct direction as needed:
+- **Main character** should face **left**
+- **NPCs** should face **right**
+
+---
+
+## 📚 Advanced Information
+
+<details>
+<summary><strong>🔧 Technical Setup & Requirements</strong></summary>
 
 ### Requirements
 - [Node.js](https://nodejs.org)
 - [npm](https://www.npmjs.com)
 
-### Setup Instructions
-
+### Development Setup
 ```bash
 npm install       # Install dependencies
 npm update        # Optional: update packages
@@ -21,21 +70,17 @@ npm start         # Launch development server
 Open your browser at [http://127.0.0.1:8080](http://127.0.0.1:8080).
 
 ### Production Build
-
 ```bash
 npm run build
 ```
-
 Build output is placed in the `/dist` directory.
 
----
+</details>
 
-## 📁 Asset Requirements
-
-Replace the contents of the `/assets/` folder with your own, following the required structure and naming conventions.
+<details>
+<summary><strong>📁 Asset Requirements & Structure</strong></summary>
 
 ### Asset Folder Structure
-
 ```
 assets/
 ├── bg/             # Background images (e.g., scenery_0.png)
@@ -52,9 +97,16 @@ assets/
 - Keep paths consistent with `manifest.json`.
 - Optimize assets for web use (compressed images and audio).
 
----
+### 🛠 Adding New Assets
+1. Place files in their appropriate folders.
+2. Add them to `manifest.json`.
+3. Use consistent naming (e.g., `happy.png`, `sad.png`).
+4. Ensure paths are relative to the `assets/` directory.
 
-## 📦 Using the Manifest File
+</details>
+
+<details>
+<summary><strong>📦 Manifest File Structure</strong></summary>
 
 The file `/assets/manifest.json` defines all loadable assets.
 
@@ -80,10 +132,7 @@ The file `/assets/manifest.json` defines all loadable assets.
 }
 ```
 
----
-
 ### 🧩 Manifest Structure Breakdown
-
 - **`backgrounds`**: List of background images  
   _(e.g., `"bg/scenery_0.png"`)_
 
@@ -95,18 +144,10 @@ The file `/assets/manifest.json` defines all loadable assets.
 - **`ui`**: List of UI images  
 - **`fonts.bitmap`**: Bitmap font reference (`.png` and `.xml`)
 
----
+</details>
 
-### 🛠 Adding New Assets
-
-1. Place files in their appropriate folders.
-2. Add them to `manifest.json`.
-3. Use consistent naming (e.g., `happy.png`, `sad.png`).
-4. Ensure paths are relative to the `assets/` directory.
-
----
-
-## 😃 Available Character Emotions
+<details>
+<summary><strong>😃 Character Emotions & Animations</strong></summary>
 
 Each emotion can trigger different animations:
 
@@ -123,7 +164,6 @@ Each emotion can trigger different animations:
 - `confused`, `annoyed`, `suspicious` — _slow right sway_
 
 ### Example Usage in Story JSON
-
 ```json
 "emotions": [
   { "character": "main_char", "emotion": "happy" },
@@ -133,26 +173,15 @@ Each emotion can trigger different animations:
 
 > 💡 Each character must include corresponding emotion images in their asset folder (e.g., `npc_1/angry.png`).
 
----
+</details>
 
-## 📚 Additional Notes
-
-- All asset paths in the manifest must be **relative to the `assets/` folder**.
-- Avoid renaming the folder structure unless you update all relevant references.
-- This template is ideal for creating modular, story-driven games with support for branching dialogue and emotion-based character visuals.
-
----
-
-Happy storytelling! 🌱
-
-
-## 📖 Creating Your Own Story (`story.json` Format)
+<details>
+<summary><strong>📖 Story JSON Format</strong></summary>
 
 The game uses a `story.json` file located in the `assets/` folder to define the full narrative, including scenes, characters, branching logic, and emotion-driven presentation.
 
 ### 🧱 Story Format Overview
-
-A story is made of a list of **`passages`**, each representing a scene or decision point. Here's what each passage typically includes:
+A story is made of a list of **`passages`**, each representing a scene or decision point:
 
 ```json
 {
@@ -171,8 +200,6 @@ A story is made of a list of **`passages`**, each representing a scene or decisi
 }
 ```
 
----
-
 ### 🔑 Fields Breakdown
 
 | Field         | Required | Description |
@@ -187,44 +214,24 @@ A story is made of a list of **`passages`**, each representing a scene or decisi
 | `character`   | (inside `emotions`) | The character's key as defined in the manifest |
 | `emotion`     | (inside `emotions`) | The emotion's name (e.g., `happy`, `sad`) matching an image in the character folder |
 
----
-
 ### 🧭 Narrative Flow
-
 - `links` create **branching paths** between passages, forming interactive choices.
 - All passages should eventually lead to one or more end points or loops.
 
 ### 🖼 Backgrounds & Emotions
-
 - Use the `background` field to set the scene (`scenery_0`, `scenery_1`, etc.).
 - Attach character emotions using the `emotions` array to create expressive, animated responses in each passage.
 
----
-
-### 🧠 Tips for Writing Passages
-
-- Keep `cleanText` concise and clear. Use `\n` for multi-line dialog.
-- Use `speaker` when you want to show who is talking.
-- Use expressive choices in `links` to reinforce storytelling (“Run away”, “Accept the beans”, etc.).
-- Looping is allowed! You can link back to an earlier passage (e.g., `passageId: 1`).
+</details>
 
 ---
 
-### ✅ Example Use Case
+## 📚 Additional Notes
 
-```json
-{
-  "id": 4,
-  "cleanText": "Jack: \"Look what I got instead!\"",
-  "speaker": "main_char",
-  "background": "scenery_0",
-  "emotions": [
-    { "character": "main_char", "emotion": "Happy" },
-    { "character": "npc_1", "emotion": "Sad" }
-  ],
-  "links": [
-    { "linkText": "Mother is furious", "passageId": 13 },
-    { "linkText": "Mother is kind", "passageId": 14 }
-  ]
-}
-```
+- All asset paths in the manifest must be **relative to the `assets/` folder**.
+- Avoid renaming the folder structure unless you update all relevant references.
+- This template is ideal for creating modular, story-driven games with support for branching dialogue and emotion-based character visuals.
+
+---
+
+Happy storytelling! 🌱

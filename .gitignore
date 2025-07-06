@@ -12,9 +12,14 @@ node_modules/
 
 # Build
 /npm-debug.log
+dist/
 build/
 out/
 scripts/tsgen/test/bin/
 scripts/tsgen/test/output.txt
+
+# Asset processing folders
+assets_backup/
+assets_standardized/
 
 plugins/spine*/spine-runtimes/
